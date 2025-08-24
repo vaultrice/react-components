@@ -1,7 +1,7 @@
 {
   "name": "@vaultrice/react-components",
   "globalName": "VaultriceReactComponents",
-  "version": "0.9.0",
+  "version": "0.8.0",
   "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -65,7 +65,7 @@
     "react-dom": "^19.1.1"
   },
   "dependencies": {
-    "@vaultrice/react": "^0.9.0"
+    "@vaultrice/react": "0.9.0"
   },
   "keywords": [
     "vaultrice",
@@ -75,7 +75,9 @@
     "key-value",
     "persistent",
     "websocket",
-    "react"
+    "react",
+    "UI",
+    "components"
   ],
   "repository": {
     "type": "git",
