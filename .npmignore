@@ -17,3 +17,4 @@ eslint.config.js
 rollup.config.js
 vitest.config.js
 .storybook
+storybook-docs

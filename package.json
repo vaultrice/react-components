@@ -30,11 +30,11 @@
     "test": "npm run lint",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build --disable-telemetry --output-dir storybook-docs",
     "start": "npm run storybook",
     "docs": "typedoc",
     "serve-docs": "npm run docs && http-server docs -o",
-    "serve-storybook": "npm run build-storybook && http-server storybook-static -o",
+    "serve-storybook": "npm run build-storybook && http-server storybook-docs -o",
     "preversion": "npm run test && npm run build",
     "postversion": "npm run docs && npm run build-storybook && git commit -a -m 'docs update' && git push && git push --tags"
   },
