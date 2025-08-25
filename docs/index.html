@@ -1,48 +1,152 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Vaultrice React Components - v0.8.0</title><meta name="description" content="Documentation for Vaultrice React Components"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">Vaultrice React Components - v0.8.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>Vaultrice React Components - v0.8.0</h1></div><div class="tsd-panel tsd-typography"><h1 id="vaultrice-react-components" class="tsd-anchor-link">Vaultrice React Components<a href="#vaultrice-react-components" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><!-- [![Tests](https://github.com/vaultrice/react-components/workflows/node/badge.svg)](https://github.com/vaultrice/react-components/actions?query=workflow%3Anode) -->
-<p><a href="https://www.npmjs.com/package/@vaultrice/react-components"><img src="https://img.shields.io/npm/v/@vaultrice/react-components.svg?style=flat-square" alt="npm version"></a></p>
-<p>Vaultrice React Components is a set of UI components for building real-time, persistent, and encrypted voting experiences in React, powered by <a href="https://www.vaultrice.com">Vaultrice</a>.</p>
-<p>Base on <a href="https://github.com/vaultrice/react"><code>@vaultrice/react</code></a> and <a href="https://github.com/vaultrice/sdk"><code>@vaultrice/sdk</code></a>.</p>
-<h2 id="features" class="tsd-anchor-link">Features<a href="#features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
-<li><strong>Voting UI</strong>: Easily add voting forms and results to your app.</li>
-<li><strong>Real-time storage</strong>: Vote counts update instantly across clients.</li>
-<li><strong>No backend required</strong>: Powered by Vaultrice's encrypted key-value storage.</li>
-<li><strong>Customizable</strong>: Style and extend components as needed.</li>
-<li><strong>TypeScript support</strong>: Fully typed APIs.</li>
-</ul>
-<h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@vaultrice/react-components</span>
-</code><button type="button">Copy</button></pre>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
 
-<h2 id="usage" class="tsd-anchor-link">Usage<a href="#usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="tsx"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">Voting</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@vaultrice/react-components&#39;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">choices</span><span class="hl-1"> = [</span><br/><span class="hl-1">  { </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-2">&#39;a&#39;</span><span class="hl-1">, </span><span class="hl-4">label:</span><span class="hl-1"> </span><span class="hl-2">&#39;Option A&#39;</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-2">&#39;b&#39;</span><span class="hl-1">, </span><span class="hl-4">label:</span><span class="hl-1"> </span><span class="hl-2">&#39;Option B&#39;</span><span class="hl-1"> }</span><br/><span class="hl-1">]</span><br/><br/><span class="hl-3">export</span><span class="hl-1"> </span><span class="hl-3">default</span><span class="hl-1"> </span><span class="hl-5">function</span><span class="hl-1"> </span><span class="hl-0">App</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-3">return</span><span class="hl-1"> (</span><br/><span class="hl-1">    </span><span class="hl-7">&lt;</span><span class="hl-8">Voting</span><br/><span class="hl-1">      </span><span class="hl-9">id</span><span class="hl-1">=</span><span class="hl-2">&quot;poll-123&quot;</span><br/><span class="hl-1">      </span><span class="hl-9">title</span><span class="hl-1">=</span><span class="hl-2">&quot;What&#39;s your favorite option?&quot;</span><br/><span class="hl-1">      </span><span class="hl-9">description</span><span class="hl-1">=</span><span class="hl-2">&quot;Choose one and see live results!&quot;</span><br/><span class="hl-1">      </span><span class="hl-9">choices</span><span class="hl-1">=</span><span class="hl-5">{</span><span class="hl-4">choices</span><span class="hl-5">}</span><br/><span class="hl-1">      </span><span class="hl-10">// Optionally pass userId, credentials, or instance options</span><br/><span class="hl-1">    </span><span class="hl-7">/&gt;</span><br/><span class="hl-1">  )</span><br/><span class="hl-1">}</span>
-</code><button type="button">Copy</button></pre>
+    <title>storybook - Storybook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<h2 id="components" class="tsd-anchor-link">Components<a href="#components" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="" class="tsd-anchor-link"><code>&lt;Voting /&gt;</code></h3><p>A complete voting widget with selectable choices, vote button, and live results.</p>
-<p><strong>Props:</strong></p>
-<ul>
-<li><code>id</code> (string): Unique identifier for the voting instance.</li>
-<li><code>title</code> (string, optional): Headline for the voting.</li>
-<li><code>description</code> (string, optional): Description text.</li>
-<li><code>voteLabel</code> (string, optional): Button label (default: <code>'vote'</code>).</li>
-<li><code>choices</code> (array): List of <code>{ id, label }</code> options.</li>
-<li><code>userId</code> (string, optional): If provided, voting status is stored in Vaultrice; otherwise, localStorage is used.</li>
-<li><code>credentials</code> (object, optional): Vaultrice SDK credentials.</li>
-<li><code>choicesInstanceOptions</code> / <code>userInstanceOptions</code> (object, optional): Advanced storage options.</li>
-</ul>
-<h3 id="shared-ui-components" class="tsd-anchor-link">Shared UI Components<a href="#shared-ui-components" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
-<li><code>&lt;Button /&gt;</code>: Styled button for actions.</li>
-<li><code>&lt;Card /&gt;</code>: Card container for content.</li>
-<li><code>&lt;Meter /&gt;</code>: Animated meter bar for percentages.</li>
-</ul>
-<h2 id="advanced-usage" class="tsd-anchor-link">Advanced Usage<a href="#advanced-usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>You can customize storage, pass credentials, or extend the UI by composing the shared components.</p>
-<p>See <a href="media/types.ts">src/types.ts</a> for full prop definitions.</p>
-<h2 id="development" class="tsd-anchor-link">Development<a href="#development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span>
-</code><button type="button">Copy</button></pre>
+    
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    
+    <style>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-regular.woff2') format('woff2');
+      }
 
-<p>To run Storybook:</p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">storybook</span>
-</code><button type="button">Copy</button></pre>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-italic.woff2') format('woff2');
+      }
 
-<h2 id="support" class="tsd-anchor-link">Support<a href="#support" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Have questions, ideas or feedback? <a href="https://github.com/vaultrice/react">Open an issue</a> or email us at <a href="mailto:support@vaultrice.com">support@vaultrice.com</a></p>
-<hr>
-<p>Made with ❤️ for developers who need real-time storage, without the backend hassle.</p>
-<p><strong>Try Vaultrice for <a href="https://www.vaultrice.app/register">free</a>!</strong></p>
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#vaultrice-react-components"><span>Vaultrice <wbr/>React <wbr/>Components</span></a><ul><li><a href="#features"><span>Features</span></a></li><li><a href="#installation"><span>Installation</span></a></li><li><a href="#usage"><span>Usage</span></a></li><li><a href="#components"><span>Components</span></a></li><li><ul><li><a href="#"><span>&lt;<wbr/>Voting /&gt;</span></a></li><li><a href="#shared-ui-components"><span>Shared <wbr/>UI <wbr/>Components</span></a></li></ul></li><li><a href="#advanced-usage"><span>Advanced <wbr/>Usage</span></a></li><li><a href="#development"><span>Development</span></a></li><li><a href="#support"><span>Support</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">Vaultrice React Components - v0.8.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold-italic.woff2') format('woff2');
+      }
+    </style>
+
+    <link href="./sb-manager/runtime.js" rel="modulepreload" />
+
+    
+    <link href="./sb-addons/storybook-core-server-presets-0/common-manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/docs-1/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/onboarding-2/manager-bundle.js" rel="modulepreload" />
+       
+
+    <style>
+      #storybook-root[hidden] {
+        display: none !important;
+      }
+    </style>
+
+    
+  </head>
+  <body>
+    <div id="root"></div>
+
+    
+    <script>
+      
+        
+          window['FEATURES'] = {
+  "argTypeTargetsV7": true,
+  "legacyDecoratorFileOrder": false,
+  "disallowImplicitActionsInRenderV8": true,
+  "viewport": true,
+  "highlight": true,
+  "controls": true,
+  "interactions": true,
+  "actions": true,
+  "backgrounds": true,
+  "outline": true,
+  "measure": true
+};
+        
+      
+        
+          window['REFS'] = {};
+        
+      
+        
+          window['LOGLEVEL'] = "info";
+        
+      
+        
+          window['DOCS_OPTIONS'] = {
+  "defaultName": "Docs"
+};
+        
+      
+        
+          window['CONFIG_TYPE'] = "PRODUCTION";
+        
+      
+        
+      
+        
+      
+        
+          window['TAGS_OPTIONS'] = {
+  "dev-only": {
+    "excludeFromDocsStories": true
+  },
+  "docs-only": {
+    "excludeFromSidebar": true
+  },
+  "test-only": {
+    "excludeFromSidebar": true,
+    "excludeFromDocsStories": true
+  }
+};
+        
+      
+        
+          window['STORYBOOK_RENDERER'] = "react";
+        
+      
+        
+          window['STORYBOOK_BUILDER'] = "@storybook/builder-vite";
+        
+      
+        
+          window['STORYBOOK_FRAMEWORK'] = "@storybook/react-vite";
+        
+      
+    </script>
+    
+
+    <script type="module">
+      import './sb-manager/globals-runtime.js';
+
+      
+        import './sb-addons/storybook-core-server-presets-0/common-manager-bundle.js';
+      
+        import './sb-addons/docs-1/manager-bundle.js';
+      
+        import './sb-addons/onboarding-2/manager-bundle.js';
+      
+
+      import './sb-manager/runtime.js';
+    </script>
+  </body>
+</html>
