@@ -34,8 +34,9 @@
     "start": "npm run storybook",
     "docs": "typedoc",
     "serve-docs": "npm run docs && http-server docs -o",
+    "serve-storybook": "npm run build-storybook && http-server storybook-static -o",
     "preversion": "npm run test && npm run build",
-    "postversion": "npm run docs && git commit -a -m 'docs update' && git push && git push --tags"
+    "postversion": "npm run docs && npm run build-storybook && git commit -a -m 'docs update' && git push && git push --tags"
   },
   "devDependencies": {
     "@rollup/plugin-terser": "0.4.4",

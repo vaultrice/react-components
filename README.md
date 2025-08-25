@@ -73,18 +73,6 @@ You can customize storage, pass credentials, or extend the UI by composing the s
 
 See [src/types.ts](src/types.ts) for full prop definitions.
 
-## Development
-
-```bash
-npm install
-npm run dev
-```
-
-To run Storybook:
-
-```bash
-npm run storybook
-```
 
 ## Support
 
