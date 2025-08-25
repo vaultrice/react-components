@@ -19,8 +19,6 @@
   border-radius: 16px;
 }
 
-
-
 /* Toggle Track */
 .vaultrice-meter-track {
   position: relative;
@@ -34,7 +32,6 @@
   background-color: rgba(0, 0, 0, 0.05);
   box-shadow: 0 8px 25px rgba(55, 0, 255, 0.05);
 }
-
 
 /* Toggle Thumb */
 .vaultrice-meter-state {
@@ -53,7 +50,6 @@
 
   background-color: rgba(255, 255, 255, 0.8);
 }
-
 
 .vaultrice-meter-control-error .vaultrice-meter-track {
   border-radius: 16px 0 0 16px;

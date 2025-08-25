@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { Credentials, InstanceOptions } from '@vaultrice/sdk'
 import { getNonLocalStorage, useMultiNonLocalStates } from '@vaultrice/react'
+import type { VotingProps, VotingResultProps } from './types'
 
 import { Card } from './shared/Card'
 import { Meter } from './shared/Meter'
@@ -9,60 +10,30 @@ import { Button } from './shared/Button'
 import './Voting.css'
 
 /**
- * Option to be choosen
+ * Custom hook to manage voting state for a user.
+ *
+ * Handles checking if the user has already voted, voting logic,
+ * and updating vote counts in Vaultrice or localStorage.
+ *
+ * @param id - Unique identifier for the voting instance.
+ * @param userId - Optional user identifier. If provided, voting status is stored in Vaultrice; otherwise, localStorage is used.
+ * @param userInstanceOptions - Optional instance options for managing user storage.
+ * @param choicesInstanceOptions - Optional instance options for managing choices storage.
+ * @param credentials - Optional credentials for accessing Vaultrice SDK.
+ * @returns [loaded, isVoting, voted, vote, error]
+ *   - loaded: boolean indicating if user voting status is loaded.
+ *   - isVoting: boolean indicating if voting is in progress.
+ *   - voted: boolean indicating if user has already voted.
+ *   - vote: function to cast a vote for a choice.
+ *   - error: any error encountered during voting.
  */
-export type ChoiceOption = {
-  /** identifies the choice */
+function useUserVoting (
   id: string,
-  /** label for the choice  */
-  label: string
-}
-
-interface VotingResultProps {
-  /** identifies the voting */
-  id: string,
-  // /** Array of ChoiceOption */
-  choices: Array<ChoiceOption>,
-  // /** optional choicesInstanceOptions */
-  choicesInstanceOptions?: InstanceOptions,
-  // /** optional credentials if not using vaultrice.init */
-  credentials?: Credentials,
-}
-
-export interface VotingProps {
-  /** identifies the voting */
-  id: string,
-  // /** a headline for the voting */
-  title?: string,
-  // /** a description for the voting */
-  description?: string,
-  // /** optional label for the voting button */
-  voteLabel?: string,
-  // /** Array of ChoiceOption */
-  choices: Array<ChoiceOption>,
-  // /** optional choicesInstanceOptions */
-  choicesInstanceOptions?: InstanceOptions,
-
-  // /**  optional userId - if provided user has voted will be stored on vaultrice, else in localstorage */
   userId?: string,
-  // /** optional userInstanceOptions */
   userInstanceOptions?: InstanceOptions,
-
-  // /** optional credentials if not using vaultrice.init */
-  credentials?: Credentials,
-  // /** Is this the principal call to action on the page? */
-  // primary?: boolean;
-  // /** What background color to use */
-  // backgroundColor?: string;
-  // /** How large should the button be? */
-  // size?: 'small' | 'medium' | 'large';
-  // /** Button contents */
-  // label: string;
-  // /** Optional click handler */
-  // onClick?: () => void;
-}
-
-function useUserVoting (id: string, userId?: string, userInstanceOptions?: InstanceOptions, choicesInstanceOptions?: InstanceOptions, credentials?: Credentials) {
+  choicesInstanceOptions?: InstanceOptions,
+  credentials?: Credentials
+) {
   const [error, setError] = useState<any>()
   const [loaded, setLoaded] = useState(false)
   const [voted, setVoted] = useState(false)
@@ -94,6 +65,13 @@ function useUserVoting (id: string, userId?: string, userInstanceOptions?: Insta
     }
   }, [userKey, uNls, userId])
 
+  /**
+   * Casts a vote for the specified choice.
+   *
+   * Increments the vote count for the choice and marks the user as voted.
+   *
+   * @param choiceId - The ID of the choice to vote for.
+   */
   const vote = async (choiceId: string) => {
     try {
       if (voted) return
@@ -120,6 +98,14 @@ function useUserVoting (id: string, userId?: string, userInstanceOptions?: Insta
   return [loaded, isVoting, voted, vote, error]
 }
 
+/**
+ * Displays the voting results for each choice.
+ *
+ * Fetches and displays the number of votes and percentage for each choice.
+ *
+ * @param props - VotingResultProps
+ * @returns A React element showing voting results.
+ */
 const VotingResult = ({
   id,
   choices = [],
@@ -148,7 +134,6 @@ const VotingResult = ({
         return (
           <div key={choice.id} className='vaultrice-voting-result'>
             <div className='vaultrice-voting--result-label'>
-
               <label>{choice.label}</label>
               <span className='vaultrice-voting-result-label-tag'>{v?.value || 0}</span>
             </div>
@@ -160,6 +145,15 @@ const VotingResult = ({
   )
 }
 
+/**
+ * Voting component for Vaultrice UI.
+ *
+ * Renders a voting form with selectable choices, handles voting logic,
+ * and displays results after voting.
+ *
+ * @param props - VotingProps
+ * @returns A React element for voting.
+ */
 export const Voting = ({
   id,
   title,
@@ -216,7 +210,7 @@ export const Voting = ({
       )}
 
       <div className='vaultrice-voting-disclaimer'>
-        Powered by <a href='https://vaultrice.com' target='_blank' rel='noreferrer'>vaultrice.com</a> get yours <a href='https://vaultrice.com' target='_bland'>for free!</a>
+        Powered by <a href='https://www.vaultrice.com' target='_blank' rel='noreferrer'>vaultrice.com</a> get yours <a href='https://www.vaultrice.app/register' target='_bland'>for free!</a>
       </div>
     </Card>
   )

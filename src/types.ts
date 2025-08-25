@@ -1,59 +1,86 @@
-import React from 'react'
-import type { InstanceOptions, Credentials, ItemsType, ItemType, NonLocalStorage } from '@vaultrice/sdk'
+import type { Credentials, InstanceOptions } from '@vaultrice/sdk'
 
 /**
- * General options for NonLocalStorage hooks.
+ * Represents a selectable option in a voting component.
  */
-export type UseGeneralOptions = {
-  /** Options for the NonLocalStorage instance */
-  instanceOptions?: InstanceOptions,
-  /** Credentials for authentication */
-  credentials?: Credentials
+export type ChoiceOption = {
+  /**
+   * Unique identifier for the choice.
+   */
+  id: string,
+  /**
+   * Display label for the choice.
+   */
+  label: string
 }
 
 /**
- * Options for useNonLocalStorage hooks.
+ * Props for the VotingResult component.
  */
-export type UseNonLocalStorageOptions = {
-  /** Whether to bind to changes (default: true) */
-  bind?: boolean
-} & UseGeneralOptions
+export interface VotingResultProps {
+  /**
+   * Unique identifier for the voting instance.
+   */
+  id: string,
+  /**
+   * Array of available choices for the voting.
+   */
+  choices: Array<ChoiceOption>,
+  /**
+   * Optional instance options for managing choices storage.
+   */
+  choicesInstanceOptions?: InstanceOptions,
+  /**
+   * Optional credentials for accessing Vaultrice SDK, if not using vaultrice.init.
+   */
+  credentials?: Credentials,
+}
 
 /**
- * Return type for useNonLocalStorage when using a single key (string).
- * @template VT - Value type
+ * Props for the Voting component.
  */
-export type UseNonLocalStorageStringReturn = [
-  /** NonLocalStorage instance */
-  NonLocalStorage,
-  /** The item value for the key */
-  ItemType | undefined,
-  /** Setter function for the item */
-  // eslint-disable-next-line no-unused-vars
-  (val: ItemType | undefined) => void,
-  /** Async getter for the item */
-  () => Promise<ItemType>,
-  /** Error state */
-  any,
-  /** Error setter */
-  React.Dispatch<React.SetStateAction<any>>
-]
-
-/**
- * Return type for useNonLocalStorage when using multiple keys (array).
- * @template VT - Value type
- */
-export type UseNonLocalStorageArrayReturn = [
-  /** NonLocalStorage instance */
-  NonLocalStorage,
-  /** The items for the keys */
-  ItemsType | undefined,
-  /** Setter function for the items */
-  React.Dispatch<React.SetStateAction<ItemsType | undefined>>,
-  /** Async getter for the items */
-  () => Promise<ItemsType>,
-  /** Error state */
-  any,
-  /** Error setter */
-  React.Dispatch<React.SetStateAction<any>>
-]
+export interface VotingProps {
+  /**
+   * Unique identifier for the voting instance.
+   */
+  id: string,
+  /**
+   * Optional headline for the voting.
+   */
+  title?: string,
+  /**
+   * Optional description for the voting.
+   */
+  description?: string,
+  /**
+   * Optional label for the voting button.
+   * @default 'vote'
+   */
+  voteLabel?: string,
+  /**
+   * Array of available choices for the voting.
+   */
+  choices: Array<ChoiceOption>,
+  /**
+   * Optional instance options for managing choices storage.
+   */
+  choicesInstanceOptions?: InstanceOptions,
+  /**
+   * Optional user identifier. If provided, voting status is stored in Vaultrice; otherwise, localStorage is used.
+   */
+  userId?: string,
+  /**
+   * Optional instance options for managing user storage.
+   */
+  userInstanceOptions?: InstanceOptions,
+  /**
+   * Optional credentials for accessing Vaultrice SDK, if not using vaultrice.init.
+   */
+  credentials?: Credentials,
+  // Additional props for future extension:
+  // primary?: boolean;
+  // backgroundColor?: string;
+  // size?: 'small' | 'medium' | 'large';
+  // label: string;
+  // onClick?: () => void;
+}
