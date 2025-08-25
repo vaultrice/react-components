@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import type { Credentials, InstanceOptions } from '@vaultrice/sdk'
-import { getNonLocalStorage } from '@vaultrice/react'
+import { getNonLocalStorage, useMultiNonLocalStates } from '@vaultrice/react'
 
 import { Card } from './shared/Card'
+import { Meter } from './shared/Meter'
+import { Button } from './shared/Button'
 
 import './Voting.css'
-import { Button } from './shared/Button'
 
 /**
  * Option to be choosen
@@ -15,6 +16,17 @@ export type ChoiceOption = {
   id: string,
   /** label for the choice  */
   label: string
+}
+
+interface VotingResultProps {
+  /** identifies the voting */
+  id: string,
+  // /** Array of ChoiceOption */
+  choices: Array<ChoiceOption>,
+  // /** optional choicesInstanceOptions */
+  choicesInstanceOptions?: InstanceOptions,
+  // /** optional credentials if not using vaultrice.init */
+  credentials?: Credentials,
 }
 
 export interface VotingProps {
@@ -108,6 +120,46 @@ function useUserVoting (id: string, userId?: string, userInstanceOptions?: Insta
   return [loaded, isVoting, voted, vote, error]
 }
 
+const VotingResult = ({
+  id,
+  choices = [],
+  choicesInstanceOptions,
+  credentials
+}: VotingResultProps) => {
+  const [choicesKeys] = useState(choices.map(c => (`vaultrice-voting-${id}-choices-${c.id}`)))
+
+  // get results
+  type ResultValue = { value?: number }
+  const [results] = useMultiNonLocalStates(`vaultrice-voting-${id}-choices`, choicesKeys, { credentials, instanceOptions: choicesInstanceOptions }) as [{ [key: string]: ResultValue }]
+
+  if (!results) return null
+
+  const totalVotes = Object.values(results).reduce((mem, v) => {
+    if (v?.value) return mem + v.value
+    return mem
+  }, 0)
+
+  return (
+    <div className='vaultrice-voting-results'>
+      {choices.map(choice => {
+        const v = results[`vaultrice-voting-${id}-choices-${choice.id}`]
+        const percentage = v?.value ? (v.value / totalVotes) * 100 : 0
+
+        return (
+          <div key={choice.id} className='vaultrice-voting-result'>
+            <div className='vaultrice-voting--result-label'>
+
+              <label>{choice.label}</label>
+              <span className='vaultrice-voting-result-label-tag'>{v?.value || 0}</span>
+            </div>
+            <Meter percentage={percentage} />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 export const Voting = ({
   id,
   title,
@@ -131,7 +183,12 @@ export const Voting = ({
       {!!description && <p className='vaultrice-voting-description'>{description}</p>}
 
       {!!voted && (
-        <div>You voted already</div>
+        <VotingResult
+          id={id}
+          choices={choices}
+          choicesInstanceOptions={choicesInstanceOptions}
+          credentials={credentials}
+        />
       )}
 
       {!voted && (

@@ -1,0 +1,60 @@
+.vaultrice-meter-container {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.vaultrice-meter-control {
+  position: relative;
+  /* --bg-color: rgba(255, 255, 255, 0.25);
+  --highlight: rgba(255, 255, 255, 0.75);
+  --text: #ffffff; */
+  --track-width: 100%;
+  --track-height: 18px;
+  --thumb-size: 16px;
+  
+  display: flex;
+  align-items: center;
+
+  border-radius: 16px;
+}
+
+
+
+/* Toggle Track */
+.vaultrice-meter-track {
+  position: relative;
+  max-width: var(--track-width);
+  height: var(--track-height);
+  border-radius: 16px;
+  overflow: hidden;
+  
+  transition: width 1s ease;
+
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 25px rgba(55, 0, 255, 0.05);
+}
+
+
+/* Toggle Thumb */
+.vaultrice-meter-state {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  top: 1px;
+  left: 1px;
+  min-width: var(--thumb-size);
+  max-width: calc(100% - 2px);
+  height: var(--thumb-size);
+  border-radius: 14px;
+  transition: width 1s ease;
+  overflow: hidden;
+
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+.vaultrice-meter-control-error .vaultrice-meter-track {
+  border-radius: 16px 0 0 16px;
+}
