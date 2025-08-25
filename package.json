@@ -30,7 +30,7 @@
     "test": "npm run lint",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build --disable-telemetry --output-dir storybook-docs",
+    "build-storybook": "storybook build --disable-telemetry --output-dir storybook-docs && echo 'prevent gh from using jekyll' > storybook-docs/.nojekyll",
     "start": "npm run storybook",
     "docs": "typedoc",
     "serve-docs": "npm run docs && http-server docs -o",
