@@ -205,21 +205,36 @@ export const Voting = ({
         <>
           <div className='vaultrice-voting-choices'>
             {
-          choices.map(choice => {
-            return (
-              <div key={choice.id} className='vaultrice-voting-choice'>
-                <input
-                  type='radio'
-                  name={choice.id}
-                  value={choice.id}
-                  checked={choice.id === selectedChoice}
-                  onChange={() => { setSelectedChoice(choice.id) }}
-                />
-                <label htmlFor={choice.id}>{choice.label}</label>
-              </div>
-            )
-          })
-        }
+    choices.map(choice => {
+      return (
+        <div
+          key={choice.id}
+          className='vaultrice-voting-choice'
+          onClick={e => {
+            // Prevent double-trigger if clicking the input itself
+            if ((e.target as HTMLElement).tagName !== 'INPUT') {
+              setSelectedChoice(choice.id)
+            }
+          }}
+          style={{ cursor: 'pointer' }}
+        >
+          <input
+            type='radio'
+            name={choice.id}
+            value={choice.id}
+            checked={choice.id === selectedChoice}
+            onChange={() => { setSelectedChoice(choice.id) }}
+            style={{ cursor: 'pointer' }}
+          />
+          <label
+            htmlFor={choice.id}
+            style={{ cursor: 'pointer' }}
+          >{choice.label}
+          </label>
+        </div>
+      )
+    })
+  }
           </div>
           <Button onClick={() => { vote(selectedChoice) }} disabled={isVoting}>{isVoting ? '...voting' : voteLabel}</Button>
         </>
