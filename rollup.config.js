@@ -11,12 +11,14 @@ export default {
     {
       dir: 'dist/cjs',
       preserveModules: true,
+      preserveModulesRoot: 'src',
       // file: pkg.main,
       format: 'cjs'
     },
     {
       dir: 'dist/esm',
       preserveModules: true,
+      preserveModulesRoot: 'src',
       // file: pkg.module,
       format: 'es' // the preferred format
     },
@@ -34,7 +36,7 @@ export default {
     typescript({
       exclude: ['src/stories/**/*']
     }),
-    postcss(), // <-- add this line!
+    postcss(),
     terser() // minifies generated bundles
   ]
 }
