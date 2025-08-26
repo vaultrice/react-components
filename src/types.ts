@@ -34,6 +34,11 @@ export interface VotingResultProps {
    * Optional credentials for accessing Vaultrice SDK, if not using vaultrice.init.
    */
   credentials?: Credentials,
+  /**
+   * Whether to bind to changes.
+   * @default true
+   */
+  bind?: boolean
 }
 
 /**
@@ -83,4 +88,9 @@ export interface VotingProps {
   // size?: 'small' | 'medium' | 'large';
   // label: string;
   // onClick?: () => void;
+  /**
+   * Whether to bind to changes.
+   * @default true
+   */
+  bind?: boolean
 }

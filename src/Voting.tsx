@@ -79,7 +79,7 @@ function useUserVoting (
 
       // increment choice
       const cNls = getNonLocalStorage({ ...choicesInstanceOptions, id: votingObjId }, credentials)
-      cNls.incrementItem(`${votingObjId}-${choiceId}`)
+      await cNls.incrementItem(`${votingObjId}-${choiceId}`)
 
       // update user
       if (userId) {
@@ -110,13 +110,14 @@ const VotingResult = ({
   id,
   choices = [],
   choicesInstanceOptions,
-  credentials
+  credentials,
+  bind = true
 }: VotingResultProps) => {
   const [choicesKeys] = useState(choices.map(c => (`vaultrice-voting-${id}-choices-${c.id}`)))
 
   // get results
   type ResultValue = { value?: number }
-  const [results] = useMultiNonLocalStates(`vaultrice-voting-${id}-choices`, choicesKeys, { credentials, instanceOptions: choicesInstanceOptions }) as [{ [key: string]: ResultValue }]
+  const [results] = useMultiNonLocalStates(`vaultrice-voting-${id}-choices`, choicesKeys, { credentials, instanceOptions: choicesInstanceOptions, bind }) as [{ [key: string]: ResultValue }]
 
   if (!results) return null
 
@@ -163,7 +164,8 @@ export const Voting = ({
   choicesInstanceOptions,
   userId,
   userInstanceOptions,
-  credentials
+  credentials,
+  bind = true
 }: VotingProps) => {
   const [selectedChoice, setSelectedChoice] = useState(choices?.[0]?.id)
 
@@ -182,6 +184,7 @@ export const Voting = ({
           choices={choices}
           choicesInstanceOptions={choicesInstanceOptions}
           credentials={credentials}
+          bind={bind}
         />
       )}
 
