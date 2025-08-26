@@ -60,6 +60,7 @@ A complete voting widget with selectable choices, vote button, and live results.
 - `userId` (string, optional): If provided, voting status is stored in Vaultrice; otherwise, localStorage is used.
 - `credentials` (object, optional): Vaultrice SDK credentials.
 - `choicesInstanceOptions` / `userInstanceOptions` (object, optional): Advanced storage options.
+- `bind` (boolean, default true): Whether to bind to changes.
 
 ### Shared UI Components
 

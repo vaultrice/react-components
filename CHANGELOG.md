@@ -9,4 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - not released yet
 
-## [0.9.0] - 2025-xx-yy
+## [0.9.0] - 2025-08-26
+
+- Initial release of Vaultrice React Components.
+- `<Voting />` component: voting UI with live results, persistent storage, and customizable props.
+- Shared UI components: `<Button />`, `<Card />`, `<Meter />`.
+- TypeScript types for all components.
+- CSS styling for all components.
