@@ -70,3 +70,37 @@
   color: rgba(55, 0, 255, 0.718);
   margin: 0 2px;
 }
+
+.vaultrice-voting-expired .vaultrice-voting--result-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vaultrice-voting-expired-icon {
+  font-size: 1.2em;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.vaultrice-voting-expired-label {
+  color: #888;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-right: auto;
+}
+
+.vaultrice-voting-expired .vaultrice-voting-result-label-tag {
+  background: #e0d7ff;
+  color: #6c3cff;
+  font-weight: 700;
+  font-size: 1em;
+  margin-left: 8px;
+}
+
+.vaultrice-voting-expired-text {
+  margin-top: 18px;
+  font-size: 1.07em;
+  color: #888;
+}
