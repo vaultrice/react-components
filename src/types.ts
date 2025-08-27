@@ -40,6 +40,15 @@ export interface VotingResultProps {
    * @default true
    */
   bind?: boolean
+  /**
+   * Show percentage instead of raw vote count.
+   */
+  showPercentage?: boolean
+  /**
+   * Show total votes below the results.
+   * @default true
+   */
+  showTotalVotes?: boolean
 }
 
 /**
@@ -100,4 +109,13 @@ export interface VotingProps {
    * @default 'undefined'
    */
   userIdForLocalStorage?: string
+  /**
+   * Show percentage instead of raw vote count.
+   */
+  showPercentage?: boolean
+  /**
+   * Show total votes below the results.
+   * @default true
+   */
+  showTotalVotes?: boolean
 }

@@ -115,7 +115,9 @@ const VotingResult = ({
   choices = [],
   choicesInstanceOptions,
   credentials,
-  bind = true
+  bind = true,
+  showPercentage = false,
+  showTotalVotes = true
 }: VotingResultProps) => {
   const [choicesKeys] = useState(choices.map(c => (`${id}-choices-${c.id}`)))
 
@@ -138,6 +140,8 @@ const VotingResult = ({
     )
   }
 
+  if (isLoading) return 'loading...'
+
   if (!results) return null
 
   const totalVotes = Object.values(results).reduce((mem, v) => {
@@ -155,12 +159,21 @@ const VotingResult = ({
           <div key={choice.id} className='vaultrice-voting-result'>
             <div className='vaultrice-voting--result-label'>
               <label>{choice.label}</label>
-              <span className='vaultrice-voting-result-label-tag'>{v?.value || 0}</span>
+              <span className='vaultrice-voting-result-label-tag'>
+                {showPercentage
+                  ? `${percentage.toFixed(1)}%`
+                  : v?.value || 0}
+              </span>
             </div>
             <Meter percentage={percentage} />
           </div>
         )
       })}
+      {showTotalVotes && (
+        <div style={{ marginTop: 12, textAlign: 'right', color: '#666', fontSize: 13 }}>
+          Total votes: <b>{totalVotes}</b>
+        </div>
+      )}
     </div>
   )
 }
@@ -185,7 +198,9 @@ export const Voting = ({
   userIdForLocalStorage,
   userInstanceOptions,
   credentials,
-  bind = true
+  bind = true,
+  showPercentage = false,
+  showTotalVotes = true
 }: VotingProps) => {
   const [selectedChoice, setSelectedChoice] = useState(choices?.[0]?.id)
 
@@ -205,6 +220,8 @@ export const Voting = ({
           choicesInstanceOptions={choicesInstanceOptions}
           credentials={credentials}
           bind={bind}
+          showPercentage={showPercentage}
+          showTotalVotes={showTotalVotes}
         />
       )}
 
