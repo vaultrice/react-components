@@ -92,5 +92,11 @@ export interface VotingProps {
    * Whether to bind to changes.
    * @default true
    */
-  bind?: boolean
+  bind?: boolean,
+  /**
+   * Optional user identifier for localStorage.
+   * If not provided it wull use the passed userId or undefined.
+   * @default 'undefined'
+   */
+  userIdForLocalStorage?: string
 }

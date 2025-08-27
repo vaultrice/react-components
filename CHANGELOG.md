@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - not released yet
 
+## [0.9.5](https://github.com/vaultrice/react-components/compare/v0.9.4...v0.9.5) - 2025-08-27
+
+- introduce userIdForLocalStorage for Voting component
+- update dependencies
+
 ## [0.9.4](https://github.com/vaultrice/react-components/compare/v0.9.3...v0.9.4) - 2025-08-27
 
 - fix react in peer dependencies

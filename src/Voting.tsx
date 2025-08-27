@@ -30,6 +30,7 @@ import './Voting.css'
 function useUserVoting (
   id: string,
   userId?: string,
+  userIdForLocalStorage?: string,
   userInstanceOptions?: InstanceOptions,
   choicesInstanceOptions?: InstanceOptions,
   credentials?: Credentials
@@ -39,7 +40,10 @@ function useUserVoting (
   const [voted, setVoted] = useState(false)
   const [isVoting, setIsVoting] = useState(false)
 
+  userIdForLocalStorage ||= userId
+
   const userKey = `${id}-user-${userId}-voted`
+  const userKeyForLocalStorage = `${id}-user-${userIdForLocalStorage}-voted`
   const userObjId = `${id}-user-${userId}`
   const votingObjId = id
 
@@ -52,7 +56,7 @@ function useUserVoting (
         const userVoted = await uNls?.getItem(userKey)
         if (userVoted) setVoted(true)
       } else {
-        if (window.localStorage.getItem(userKey)) setVoted(true)
+        if (window.localStorage.getItem(userKeyForLocalStorage)) setVoted(true)
       }
 
       setLoaded(true)
@@ -63,7 +67,7 @@ function useUserVoting (
     } catch (err) {
       setError(err)
     }
-  }, [userKey, uNls, userId])
+  }, [userKey, uNls, userId, userIdForLocalStorage, userKeyForLocalStorage])
 
   /**
    * Casts a vote for the specified choice.
@@ -85,7 +89,7 @@ function useUserVoting (
       if (userId) {
         await uNls?.setItem(userKey, Date.now())
       } else {
-        window.localStorage.setItem(userKey, Date.now().toString())
+        window.localStorage.setItem(userKeyForLocalStorage, Date.now().toString())
       }
 
       setIsVoting(false)
@@ -176,13 +180,14 @@ export const Voting = ({
   choices = [],
   choicesInstanceOptions,
   userId,
+  userIdForLocalStorage,
   userInstanceOptions,
   credentials,
   bind = true
 }: VotingProps) => {
   const [selectedChoice, setSelectedChoice] = useState(choices?.[0]?.id)
 
-  const [loadedUser, isVoting, voted, vote] = useUserVoting(id, userId, userInstanceOptions, choicesInstanceOptions, credentials)
+  const [loadedUser, isVoting, voted, vote] = useUserVoting(id, userId, userIdForLocalStorage, userInstanceOptions, choicesInstanceOptions, credentials)
 
   if (!loadedUser) return null
 
