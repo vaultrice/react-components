@@ -39,9 +39,9 @@ function useUserVoting (
   const [voted, setVoted] = useState(false)
   const [isVoting, setIsVoting] = useState(false)
 
-  const userKey = `vaultrice-voting-${id}-user-${userId}-voted`
-  const userObjId = `vaultrice-voting-${id}-user-${userId}`
-  const votingObjId = `vaultrice-voting-${id}-choices`
+  const userKey = `${id}-user-${userId}-voted`
+  const userObjId = `${id}-user-${userId}`
+  const votingObjId = id
 
   const uNls = userId ? getNonLocalStorage({ ...userInstanceOptions, id: userObjId }, credentials) : undefined
 
@@ -79,7 +79,7 @@ function useUserVoting (
 
       // increment choice
       const cNls = getNonLocalStorage({ ...choicesInstanceOptions, id: votingObjId }, credentials)
-      await cNls.incrementItem(`${votingObjId}-${choiceId}`)
+      await cNls.incrementItem(`${votingObjId}-choices-${choiceId}`)
 
       // update user
       if (userId) {
@@ -113,11 +113,11 @@ const VotingResult = ({
   credentials,
   bind = true
 }: VotingResultProps) => {
-  const [choicesKeys] = useState(choices.map(c => (`vaultrice-voting-${id}-choices-${c.id}`)))
+  const [choicesKeys] = useState(choices.map(c => (`${id}-choices-${c.id}`)))
 
   // get results
   type ResultValue = { value?: number }
-  const [results] = useMultiNonLocalStates(`vaultrice-voting-${id}-choices`, choicesKeys, { credentials, instanceOptions: choicesInstanceOptions, bind }) as [{ [key: string]: ResultValue }]
+  const [results] = useMultiNonLocalStates(id, choicesKeys, { credentials, instanceOptions: choicesInstanceOptions, bind }) as [{ [key: string]: ResultValue }]
 
   if (!results) {
     return (
@@ -142,7 +142,7 @@ const VotingResult = ({
   return (
     <div className='vaultrice-voting-results'>
       {choices.map(choice => {
-        const v = results[`vaultrice-voting-${id}-choices-${choice.id}`]
+        const v = results[`${id}-choices-${choice.id}`]
         const percentage = v?.value ? (v.value / totalVotes) * 100 : 0
 
         return (
