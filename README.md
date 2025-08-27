@@ -75,6 +75,12 @@ You can customize storage, pass credentials, or extend the UI by composing the s
 See [src/types.ts](src/types.ts) for full prop definitions.
 
 
+## Related Packages
+
+  - [Vaultrice SDK for React.js](https://github.com/vaultrice/react)
+  - [Vaultrice TS/JS SDK](https://github.com/vaultrice/sdk)
+
+
 ## Support
 
 Have questions, ideas or feedback? [Open an issue](https://github.com/vaultrice/react) or email us at [support@vaultrice.com](mailto:support@vaultrice.com)
