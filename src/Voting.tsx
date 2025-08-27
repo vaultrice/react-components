@@ -265,7 +265,7 @@ export const Voting = ({
       )}
 
       <div className='vaultrice-voting-disclaimer'>
-        Powered by <a href='https://www.vaultrice.com' target='_blank' rel='noreferrer'>vaultrice.com</a> get yours <a href='https://www.vaultrice.app/register' target='_bland'>for free!</a>
+        Powered by <a href='https://www.vaultrice.com' target='_blank' rel='noreferrer'>vaultrice.com</a> - get yours <a href='https://www.vaultrice.app/register' target='_bland'>for free!</a>
       </div>
     </Card>
   )
