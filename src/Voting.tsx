@@ -43,7 +43,7 @@ function useUserVoting (
   userIdForLocalStorage ||= userId
 
   const userKey = `${id}-user-${userId}-voted`
-  const userKeyForLocalStorage = `${id}-user-${userIdForLocalStorage}-voted`
+  const userKeyForLocalStorage = `vaultrice-${id}-user-${userIdForLocalStorage}-voted`
   const userObjId = `${id}-user-${userId}`
   const votingObjId = id
 
