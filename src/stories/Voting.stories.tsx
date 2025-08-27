@@ -33,7 +33,11 @@ export const Primary: Story = {
     id: 'voting1',
     title: 'Vote for our latest feature proposal',
     description: 'Every voice counts to get this component like you want it.',
-    choices: [{ id: 'op1', label: 'Create a render prop.' }, { id: 'op2', label: 'Have a dark theme.' }, { id: 'op3', label: 'I\'m already happy with what I got.' }],
+    choices: [
+      { id: 'op1', label: 'Create a render prop.' },
+      { id: 'op2', label: 'Have a dark theme.' },
+      { id: 'op3', label: <>I'm already <a href='https://www.vaultrice.com/' target='_blank' rel='noreferrer'>happy</a> with what <strong>I got</strong>.</> }
+    ],
     credentials: {
       projectId: import.meta.env.VITE_VAULTRICE_PROJECTID,
       apiKey: import.meta.env.VITE_VAULTRICE_APIKEY,

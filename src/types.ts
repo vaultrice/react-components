@@ -1,4 +1,5 @@
 import type { Credentials, InstanceOptions } from '@vaultrice/sdk'
+import type { ReactNode } from 'react'
 
 /**
  * Represents a selectable option in a voting component.
@@ -11,7 +12,7 @@ export type ChoiceOption = {
   /**
    * Display label for the choice.
    */
-  label: string
+  label: string | ReactNode
 }
 
 /**

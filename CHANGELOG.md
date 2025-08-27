@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - not released yet
 
+## [0.9.7](https://github.com/vaultrice/react-components/compare/v0.9.6...v0.9.7) - 2025-08-27
+
+- voting choices can also be a react component
+
 ## [0.9.6](https://github.com/vaultrice/react-components/compare/v0.9.5...v0.9.6) - 2025-08-27
 
 - prefix userKeyForLocalStorage for Voting component
