@@ -62,11 +62,11 @@ export interface VotingProps {
   /**
    * Optional headline for the voting.
    */
-  title?: string,
+  title?: string | ReactNode,
   /**
    * Optional description for the voting.
    */
-  description?: string,
+  description?: string | ReactNode,
   /**
    * Optional label for the voting button.
    * @default 'vote'
