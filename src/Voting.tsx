@@ -121,9 +121,9 @@ const VotingResult = ({
 
   // get results
   type ResultValue = { value?: number }
-  const [results] = useMultiNonLocalStates(id, choicesKeys, { credentials, instanceOptions: choicesInstanceOptions, bind }) as [{ [key: string]: ResultValue }]
+  const [results, , , isLoading] = useMultiNonLocalStates(id, choicesKeys, { credentials, instanceOptions: choicesInstanceOptions, bind }) as [ { [key: string]: ResultValue }, unknown, unknown, boolean ]
 
-  if (!results) {
+  if (!isLoading && !results) {
     return (
       <div className='vaultrice-voting-result vaultrice-voting-expired'>
         <div className='vaultrice-voting--result-label'>
@@ -137,6 +137,8 @@ const VotingResult = ({
       </div>
     )
   }
+
+  if (!results) return null
 
   const totalVotes = Object.values(results).reduce((mem, v) => {
     if (v?.value) return mem + v.value
