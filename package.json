@@ -83,6 +83,8 @@
     "UI",
     "components"
   ],
+  "author": "The Vaultrice Team <support@vaultrice.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/vaultrice/react-components.git"
