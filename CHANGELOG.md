@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - not released yet
 
+## [0.9.14](https://github.com/vaultrice/react-components/compare/v0.9.13...v0.9.14) - 2025-08-31
+
+- cleanup internal setVoted if expired
+
 ## [0.9.13](https://github.com/vaultrice/react-components/compare/v0.9.12...v0.9.13) - 2025-08-31
 
 - improve internal setVoted

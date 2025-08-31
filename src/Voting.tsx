@@ -43,6 +43,7 @@ function useUserVoting (
   userIdForLocalStorage ||= userId
 
   const vaultriceClass = userInstanceOptions ? (userInstanceOptions.class || '_undefined_') : choicesInstanceOptions?.class || '_undefined_'
+  const vaultriceTtl = userInstanceOptions ? (userInstanceOptions.ttl || 60 * 60 * 1000) : choicesInstanceOptions?.ttl || 60 * 60 * 1000
 
   const userKey = `${id}-user-${userId}-voted`
   const userKeyForLocalStorage = `vaultrice-${id}-user-${userIdForLocalStorage}-${vaultriceClass}-voted`
@@ -63,7 +64,12 @@ function useUserVoting (
           setVoted(false)
         }
       } else {
-        if (window.localStorage.getItem(userKeyForLocalStorage)) {
+        let userVoted = window.localStorage.getItem(userKeyForLocalStorage)
+        if (userVoted && (parseInt(userVoted) + (vaultriceTtl * 2)) < Date.now()) {
+          window.localStorage.removeItem(userKeyForLocalStorage)
+          userVoted = null
+        }
+        if (userVoted) {
           setVoted(true)
         } else {
           setVoted(false)
@@ -215,10 +221,6 @@ export const Voting = ({
   const [selectedChoice, setSelectedChoice] = useState(choices?.[0]?.id)
 
   const [loadedUser, isVoting, voted, vote] = useUserVoting(id, userId, userIdForLocalStorage, userInstanceOptions, choicesInstanceOptions, credentials)
-
-  console.log({
-    loadedUser, isVoting, voted
-  })
 
   if (!loadedUser) return null
 
