@@ -42,8 +42,10 @@ function useUserVoting (
 
   userIdForLocalStorage ||= userId
 
+  const vaultriceClass = userInstanceOptions ? (userInstanceOptions.class || '_undefined_') : choicesInstanceOptions?.class || '_undefined_'
+
   const userKey = `${id}-user-${userId}-voted`
-  const userKeyForLocalStorage = `vaultrice-${id}-user-${userIdForLocalStorage}-voted`
+  const userKeyForLocalStorage = `vaultrice-${id}-user-${userIdForLocalStorage}-${vaultriceClass}-voted`
   const userObjId = `${id}-user-${userId}`
   const votingObjId = id
 
