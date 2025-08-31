@@ -54,13 +54,21 @@ function useUserVoting (
   // check if user voted already
   useEffect(() => {
     const load = async () => {
+      setLoaded(false)
       if (userId) {
         const userVoted = await uNls?.getItem(userKey)
-        if (userVoted) setVoted(true)
+        if (userVoted) {
+          setVoted(true)
+        } else {
+          setVoted(false)
+        }
       } else {
-        if (window.localStorage.getItem(userKeyForLocalStorage)) setVoted(true)
+        if (window.localStorage.getItem(userKeyForLocalStorage)) {
+          setVoted(true)
+        } else {
+          setVoted(false)
+        }
       }
-
       setLoaded(true)
     }
 
@@ -207,6 +215,10 @@ export const Voting = ({
   const [selectedChoice, setSelectedChoice] = useState(choices?.[0]?.id)
 
   const [loadedUser, isVoting, voted, vote] = useUserVoting(id, userId, userIdForLocalStorage, userInstanceOptions, choicesInstanceOptions, credentials)
+
+  console.log({
+    loadedUser, isVoting, voted
+  })
 
   if (!loadedUser) return null
 
