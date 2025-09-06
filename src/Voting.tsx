@@ -83,7 +83,7 @@ function useUserVoting (
     } catch (err) {
       setError(err)
     }
-  }, [userKey, uNls, userId, userIdForLocalStorage, userKeyForLocalStorage])
+  }, [userKey, uNls, userId, userIdForLocalStorage, userKeyForLocalStorage, vaultriceTtl])
 
   /**
    * Casts a vote for the specified choice.
