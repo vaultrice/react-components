@@ -1,14 +1,14 @@
 .vaultrice-button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px; /* Slightly more rounded like marketing site */
-  color: #000;
+  background: linear-gradient(135deg, var(--vaultrice-background), var(--vaultrice-background-secondary));
+  border: 1px solid var(--vaultrice-border-color);
+  border-radius: 12px;
+  color: var(--vaultrice-text-color);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  box-shadow: 0 4px 15px var(--vaultrice-shadow);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,21 +17,23 @@
   transition: all 0.3s ease, transform 0.1s ease;
 }
 
-.vaultrice-button:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(55, 0, 255, 0.05));
-  border-color: rgba(164, 150, 212, 0.532);
-  box-shadow: 0 8px 25px rgba(55, 0, 255, 0.05);
+.vaultrice-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--vaultrice-background-secondary), var(--vaultrice-primary-color));
+  border-color: var(--vaultrice-primary-color);
+  box-shadow: 0 8px 25px var(--vaultrice-shadow);
   transform: translateY(-2px);
 }
 
 .vaultrice-button:disabled {
   cursor: not-allowed;
-  color: #ccc;
-  background: rgba(255,255,255, 0.025);
+  color: var(--vaultrice-text-muted);
+  background: var(--vaultrice-background-blur);
   box-shadow: none;
+  transform: none;
 }
 
 .vaultrice-button:disabled:hover {
-  background: rgba(255,255,255, 0.025);
+  background: var(--vaultrice-background-blur);
   box-shadow: none;
+  transform: none;
 }

@@ -1,4 +1,4 @@
-import type { Credentials, InstanceOptions } from '@vaultrice/sdk'
+import type { Credentials, InstanceOptions, JSONObj, JoinedConnection } from '@vaultrice/sdk'
 import type { ReactNode } from 'react'
 
 /**
@@ -118,4 +118,200 @@ export interface VotingProps {
    * @default true
    */
   showTotalVotes?: boolean
+}
+
+export interface PredefinedUser {
+  [key: string]: any
+}
+
+/**
+ * Props for the Chat component.
+ */
+export interface PresenceProps {
+  /**
+   * Unique identifier for the presence instance.
+   */
+  id: string
+  /**
+   * Current user information.
+   */
+  user: {
+    name?: string
+    avatarUrl?: string
+    [key: string]: any
+  }
+  /**
+   * Callback function called when a message is received.
+   */
+  // eslint-disable-next-line no-unused-vars
+  onMessage?: ((msg: JSONObj) => void)
+  /**
+   * Callback function called when send function is ready to use.
+   */
+  // eslint-disable-next-line no-unused-vars
+  onSendReady?: ((send: (msg: any) => void) => void)
+  /**
+   * Maximum number of avatars to display before showing "+N more".
+   */
+  maxAvatars?: number
+  /**
+   * Custom avatar renderer function.
+   */
+  // eslint-disable-next-line no-unused-vars
+  renderAvatar?: (connection: JoinedConnection, isOwnConnection?: boolean, predefinedUser?: boolean) => ReactNode
+  /**
+   * Property name(s) to use for deduplicating users.
+   */
+  deduplicateBy?: string | string[]
+  /**
+   * Vaultrice credentials for authentication.
+   */
+  credentials?: Credentials
+  /**
+   * Optional instance options.
+   */
+  instanceOptions?: InstanceOptions
+  /**
+   * List of predefined team members to show even when offline.
+   */
+  predefinedUsers?: PredefinedUser[]
+  /**
+   * Whether to show offline predefined users.
+   */
+  showOfflineUsers?: boolean
+}
+
+/**
+ * Represents a chat message.
+ */
+export interface ChatMessage {
+  id: string
+  user: string
+  message: string
+  timestamp: number
+  userId?: string
+  avatarUrl?: string
+  type?: 'message' | 'system'
+  reactions?: { [emoji: string]: string[] } // emoji -> array of user names
+}
+
+/**
+ * Props for the Chat component.
+ */
+export interface ChatProps {
+  id: string
+  user: {
+    name: string
+    avatarUrl?: string
+    id?: string
+    [key: string]: any
+  }
+  // eslint-disable-next-line no-unused-vars
+  onMessage?: (msg: JSONObj) => void
+  // eslint-disable-next-line no-unused-vars
+  onSendReady?: (send: (msg: any) => void) => void
+  placeholder?: string
+  maxHeight?: string
+  showTimestamps?: boolean
+  showUserAvatars?: boolean
+  autoScroll?: boolean
+  credentials?: Credentials
+  instanceOptions?: InstanceOptions
+  // eslint-disable-next-line no-unused-vars
+  messageFilter?: (msg: any) => boolean
+  // eslint-disable-next-line no-unused-vars
+  renderMessage?: (msg: ChatMessage, isOwnMessage: boolean) => ReactNode
+  /**
+   * Custom avatar renderer function for chat messages.
+   */
+  // eslint-disable-next-line no-unused-vars
+  renderAvatar?: (user: any, isOwnConnection?: boolean) => ReactNode
+  disabled?: boolean
+}
+
+export interface ChatRoomProps {
+  /**
+   * Unique identifier for the chat room (shared between chat and presence).
+   */
+  id: string
+  /**
+   * Current user information.
+   */
+  user: {
+    name: string
+    avatarUrl?: string
+    id?: string
+    [key: string]: any
+  }
+  /**
+   * Optional room title.
+   */
+  title?: string
+  /**
+   * Optional room description or subtitle.
+   */
+  subtitle?: string
+  /**
+   * Show presence component above chat.
+   * @default true
+   */
+  showPresence?: boolean
+  /**
+   * Show room header with title/subtitle.
+   * @default true
+   */
+  showHeader?: boolean
+  /**
+   * Vaultrice credentials for authentication.
+   */
+  credentials?: ChatProps['credentials']
+  /**
+   * Optional instance options (shared between chat and presence).
+   */
+  instanceOptions?: ChatProps['instanceOptions']
+  /**
+   * Property name(s) to use for deduplicating users.
+   */
+  deduplicateBy?: PresenceProps['deduplicateBy']
+  /**
+   * List of predefined team members to show in presence.
+   */
+  predefinedUsers?: PresenceProps['predefinedUsers']
+  /**
+   * Whether to show offline predefined users in presence.
+   */
+  showOfflineUsers?: PresenceProps['showOfflineUsers']
+  /**
+   * Maximum number of avatars to display in presence.
+   */
+  maxAvatars?: PresenceProps['maxAvatars']
+  /**
+   * Custom avatar renderer for presence.
+   */
+  renderPresenceAvatar?: PresenceProps['renderAvatar']
+  /**
+   * Custom avatar renderer for chat messages.
+   */
+  renderChatAvatar?: ChatProps['renderAvatar']
+  /**
+   * Custom message renderer for chat.
+   */
+  renderMessage?: ChatProps['renderMessage']
+  /**
+   * Chat-specific props
+   */
+  placeholder?: ChatProps['placeholder']
+  maxHeight?: ChatProps['maxHeight']
+  showTimestamps?: ChatProps['showTimestamps']
+  showUserAvatars?: ChatProps['showUserAvatars']
+  autoScroll?: ChatProps['autoScroll']
+  messageFilter?: ChatProps['messageFilter']
+  disabled?: ChatProps['disabled']
+  /**
+   * Callbacks
+   */
+  onMessage?: ChatProps['onMessage']
+  onSendReady?: ChatProps['onSendReady']
+  onPresenceMessage?: PresenceProps['onMessage']
+  onPresenceSendReady?: PresenceProps['onSendReady']
 }

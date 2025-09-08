@@ -1,0 +1,201 @@
+.vaultrice-presence {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vaultrice-presence-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.vaultrice-presence-pile {
+  display: flex;
+  align-items: center;
+  /* padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
+}
+
+/* Use a more generic approach for the first avatar */
+.vaultrice-presence-pile > *:first-child .vaultrice-presence-avatar,
+.vaultrice-presence-pile > *:first-child .vaultrice-presence-avatar-fallback {
+  margin-left: 0;
+}
+
+.vaultrice-presence-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  margin-left: -10px;
+  background-color: #f0f0f0;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.vaultrice-presence-avatar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.vaultrice-presence-avatar-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  margin-left: -10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.vaultrice-presence-avatar-fallback:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Own connection styling */
+.vaultrice-presence-own .vaultrice-presence-avatar {
+  border: 3px solid rgba(55, 0, 255, 0.8);
+  box-shadow: 0 0 0 2px rgba(55, 0, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.vaultrice-presence-own .vaultrice-presence-avatar-fallback {
+  border: 3px solid rgba(55, 0, 255, 0.8);
+  box-shadow: 0 0 0 2px rgba(55, 0, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.vaultrice-presence-name {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+}
+
+.vaultrice-presence-more {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-left: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+}
+
+.vaultrice-presence-more:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.vaultrice-presence-stack {
+  display: flex;
+  position: relative;
+}
+
+.vaultrice-presence-stack::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #666;
+}
+
+/* Offline user styling */
+.vaultrice-presence-offline .vaultrice-presence-avatar {
+  opacity: 0.5;
+  filter: grayscale(50%);
+}
+
+.vaultrice-presence-offline .vaultrice-presence-avatar-fallback {
+  opacity: 0.5;
+  filter: grayscale(50%);
+}
+
+/* Add a small badge for predefined team members */
+.vaultrice-presence-predefined {
+  position: relative;
+}
+
+/* Enhanced Dark Mode for Presence */
+[data-theme="dark"] .vaultrice-presence-pile {
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); */
+}
+
+[data-theme="dark"] .vaultrice-presence-avatar {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .vaultrice-presence-avatar:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .vaultrice-presence-avatar-fallback {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  /* Keep the gradient backgrounds as they look good in dark mode */
+}
+
+[data-theme="dark"] .vaultrice-presence-avatar-fallback:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .vaultrice-presence-own .vaultrice-presence-avatar {
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.4), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .vaultrice-presence-own .vaultrice-presence-avatar-fallback {
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.4), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .vaultrice-presence-name {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] .vaultrice-presence-more {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .vaultrice-presence-more:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .vaultrice-presence-offline .vaultrice-presence-avatar {
+  opacity: 0.4;
+  filter: grayscale(70%) brightness(0.7);
+}
+
+[data-theme="dark"] .vaultrice-presence-offline .vaultrice-presence-avatar-fallback {
+  opacity: 0.4;
+  filter: grayscale(70%) brightness(0.7);
+}

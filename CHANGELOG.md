@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0](https://github.com/vaultrice/react-components/compare/v1.0.0...v1.1.0) - 2025-09-08
+
+- **New `<Presence />` component**: Real-time user presence indicators with customizable avatars
+  - Support for predefined team members that show even when offline
+  - User deduplication by configurable properties (`id`, `name`, etc.)
+  - Custom avatar rendering with fallback avatar generation
+  - Glassmorphism design with dark mode support
+- **New `<Chat />` component**: Full-featured real-time chat with message history
+  - Typing indicators and auto-scroll functionality
+  - Message grouping and timestamps
+  - Custom message and avatar rendering
+  - Message filtering capabilities
+  - Glassmorphism design with dark mode support
+- **New `<ChatRoom />` component**: Complete chat room combining Chat and Presence
+  - Integrated header with room title and online user count
+  - Seamless combination of chat and presence functionality
+  - Configurable display options (header, presence, etc.)
+  - Glassmorphism design with dark mode support
+- **Enhanced theming system**: Comprehensive CSS custom properties for theming
+  - New glassmorphism gradient variables for consistent styling
+  - Improved dark mode support across all components
+  - Theme utilities (`setTheme`, `toggleTheme`, `applyColorScheme`)
+- **Avatar utilities**: Shared avatar rendering functions
+  - `getUserInitials()` - Generate user initials from names
+  - `getAvatarColor()` - Consistent color generation for fallback avatars
+  - `defaultRenderPresenceAvatar()` and `defaultRenderChatAvatar()` - Default renderers
+
 ## [1.0.0](https://github.com/vaultrice/react-components/compare/v0.9.15...v1.0.0) - 2025-09-06
 
 - First official stable release. This marks it as production-ready.

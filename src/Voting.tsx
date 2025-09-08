@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import type { Credentials, InstanceOptions } from '@vaultrice/sdk'
 import { getNonLocalStorage, useMultiNonLocalStates } from '@vaultrice/react'
 import type { VotingProps, VotingResultProps } from './types'
-
 import { Card } from './shared/Card'
 import { Meter } from './shared/Meter'
 import { Button } from './shared/Button'
-
+import './shared/theme.css'
 import './Voting.css'
 
 /**

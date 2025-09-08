@@ -7,7 +7,8 @@ const config: StorybookConfig = {
   ],
   addons: [
     '@storybook/addon-docs',
-    '@storybook/addon-onboarding'
+    '@storybook/addon-onboarding',
+    '@storybook/addon-themes' // Add this line
   ],
   framework: {
     name: '@storybook/react-vite',

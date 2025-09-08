@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import './theme.css'
 import './Meter.css'
 
 /**

@@ -1,0 +1,94 @@
+/* Vaultrice Component Theming */
+
+/* Light theme (default) */
+:root,
+[data-theme="light"] {
+  /* Primary colors */
+  --vaultrice-primary-color: rgba(55, 0, 255, 0.8);
+  --vaultrice-primary-color-hover: rgba(55, 0, 255, 0.9);
+  --vaultrice-primary-color-light: rgba(55, 0, 255, 0.2);
+  
+  /* Background colors */
+  --vaultrice-background: rgba(255, 255, 255, 0.6);
+  --vaultrice-background-secondary: rgba(255, 255, 255, 0.4);
+  --vaultrice-background-blur: rgba(255, 255, 255, 0.2);
+  --vaultrice-background-overlay: rgba(0, 0, 0, 0.02);
+  --vaultrice-background-input: rgba(255, 255, 255, 0.2);
+  --vaultrice-background-disabled: rgba(255, 255, 255, 0.3);
+  
+  /* Glassmorphism gradient colors - Light theme */
+  --vaultrice-glass-color-1: rgba(103, 167, 193, 0.25);
+  --vaultrice-glass-color-2: rgba(14, 114, 148, 0.25);
+  --vaultrice-glass-color-3: rgba(176, 68, 197, 0.25);
+  
+  /* Text colors */
+  --vaultrice-text-color: rgba(0, 0, 0, 0.9);
+  --vaultrice-text-secondary: rgba(0, 0, 0, 0.6);
+  --vaultrice-text-muted: rgba(0, 0, 0, 0.5);
+  --vaultrice-text-disabled: rgba(0, 0, 0, 0.3);
+  --vaultrice-text-disabled-button: rgba(0, 0, 0, 0.4);
+  
+  /* Border and shadow */
+  --vaultrice-border-color: rgba(0, 0, 0, 0.12);
+  --vaultrice-border-color-focus: rgba(55, 0, 255, 0.6);
+  --vaultrice-border-light: rgba(0, 0, 0, 0.08);
+  --vaultrice-border-disabled: rgba(0, 0, 0, 0.06);
+  --vaultrice-shadow: rgba(0, 0, 0, 0.15);
+  --vaultrice-shadow-strong: rgba(0, 0, 0, 0.3);
+  --vaultrice-shadow-light: rgba(0, 0, 0, 0.1);
+  
+  /* Avatar borders */
+  --vaultrice-avatar-border: rgba(255, 255, 255, 0.4);
+  --vaultrice-avatar-shadow: rgba(0, 0, 0, 0.15);
+  
+  /* Status colors */
+  --vaultrice-success-color: #28a745;
+  --vaultrice-error-color: #dc3545;
+  --vaultrice-warning-color: #ffc107;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  /* Primary colors */
+  --vaultrice-primary-color: #4dabf7;
+  --vaultrice-primary-color-hover: #339af0;
+  --vaultrice-primary-color-light: rgba(77, 171, 247, 0.25);
+  
+  /* Background colors */
+  --vaultrice-background: rgba(255, 255, 255, 0.08);
+  --vaultrice-background-secondary: rgba(255, 255, 255, 0.05);
+  --vaultrice-background-blur: rgba(255, 255, 255, 0.02);
+  --vaultrice-background-overlay: rgba(0, 0, 0, 0.15);
+  --vaultrice-background-input: rgba(255, 255, 255, 0.05);
+  --vaultrice-background-disabled: rgba(255, 255, 255, 0.1);
+  
+  /* Glassmorphism gradient colors - MORE VIBRANT and similar to light mode */
+  --vaultrice-glass-color-1: rgba(103, 167, 193, 0.35);
+  --vaultrice-glass-color-2: rgba(14, 114, 148, 0.35);
+  --vaultrice-glass-color-3: rgba(176, 68, 197, 0.35);
+  
+  /* Text colors */
+  --vaultrice-text-color: rgba(255, 255, 255, 0.95);
+  --vaultrice-text-secondary: rgba(255, 255, 255, 0.7);
+  --vaultrice-text-muted: rgba(255, 255, 255, 0.5);
+  --vaultrice-text-disabled: rgba(255, 255, 255, 0.3);
+  --vaultrice-text-disabled-button: rgba(255, 255, 255, 0.5);
+  
+  /* Border and shadow */
+  --vaultrice-border-color: rgba(255, 255, 255, 0.2);
+  --vaultrice-border-color-focus: #4dabf7;
+  --vaultrice-border-light: rgba(255, 255, 255, 0.08);
+  --vaultrice-border-disabled: rgba(255, 255, 255, 0.1);
+  --vaultrice-shadow: rgba(0, 0, 0, 0.4);
+  --vaultrice-shadow-strong: rgba(0, 0, 0, 0.6);
+  --vaultrice-shadow-light: rgba(0, 0, 0, 0.3);
+  
+  /* Avatar borders */
+  --vaultrice-avatar-border: rgba(255, 255, 255, 0.3);
+  --vaultrice-avatar-shadow: rgba(0, 0, 0, 0.4);
+  
+  /* Status colors */
+  --vaultrice-success-color: #51cf66;
+  --vaultrice-error-color: #ff6b6b;
+  --vaultrice-warning-color: #ffd43b;
+}

@@ -6,9 +6,6 @@
 
 .vaultrice-meter-control {
   position: relative;
-  /* --bg-color: rgba(255, 255, 255, 0.25);
-  --highlight: rgba(255, 255, 255, 0.75);
-  --text: #ffffff; */
   --track-width: 100%;
   --track-height: 18px;
   --thumb-size: 16px;
@@ -51,6 +48,29 @@
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.vaultrice-meter-bar {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(55, 0, 255, 0.8), rgba(55, 0, 255, 0.6));
+  border-radius: 5px;
+  transition: width 0.6s ease-in-out;
+  box-shadow: 0 2px 8px rgba(55, 0, 255, 0.3);
+}
+
 .vaultrice-meter-control-error .vaultrice-meter-track {
   border-radius: 16px 0 0 16px;
+}
+
+/* Enhanced Dark Mode for Meter */
+[data-theme="dark"] .vaultrice-meter-track {
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .vaultrice-meter-state {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .vaultrice-meter-bar {
+  background: linear-gradient(90deg, #4dabf7, #339af0);
+  box-shadow: 0 2px 8px rgba(77, 171, 247, 0.4);
 }
