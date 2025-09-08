@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { useMessaging } from '@vaultrice/react'
+import { useMessaging, useNonLocalArray } from '@vaultrice/react'
 import type { ChatProps, ChatMessage } from './types'
 import { defaultRenderChatAvatar } from './shared/avatarUtils'
 import './shared/theme.css'
 import './Chat.css'
+import uuid from './uuidv4'
 
 // Helper function to format timestamp
 const formatTimestamp = (timestamp: number, showTime = true): string => {
@@ -115,7 +116,9 @@ export const Chat: React.FC<ChatProps> = ({
   messageFilter,
   renderMessage,
   renderAvatar,
-  disabled = false
+  disabled = false,
+  persistMessages = false,
+  messageHistoryLimit = 100
 }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [inputMessage, setInputMessage] = useState('')
@@ -127,7 +130,41 @@ export const Chat: React.FC<ChatProps> = ({
   // eslint-disable-next-line no-unused-vars
   const sendRef = useRef<((msg: any) => void) | null>(null)
 
-  // Handle incoming messages
+  // Hook for message persistence - Only use when needed
+  const [persistedMessages, { push: pushMessage, splice: spliceMessages },, isLoading] = persistMessages
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    ? useNonLocalArray<ChatMessage>(id, 'chat-history', {
+      credentials,
+      instanceOptions,
+      bind: false
+    })
+    : [[], { push: async () => {}, splice: async () => {} }, null, false]
+
+  // Load persisted message history only once
+  useEffect(() => {
+    // Only run if persistence is enabled, not loading, and haven't loaded history yet
+    if (!persistMessages || isLoading || !persistedMessages || persistedMessages.length === 0) {
+      return
+    }
+
+    // If we have persisted messages, load them
+    if (persistedMessages && Array.isArray(persistedMessages)) {
+      const validMessages = persistedMessages
+        .filter((msg: any): msg is ChatMessage =>
+          msg &&
+          typeof msg === 'object' &&
+          'id' in msg &&
+          'user' in msg &&
+          'message' in msg &&
+          'timestamp' in msg
+        )
+        .sort((a, b) => a.timestamp - b.timestamp)
+
+      setMessages(validMessages)
+    }
+  }, [persistMessages, persistedMessages, isLoading])
+
+  // Handle incoming live messages
   const handleMessage = useCallback((msg: any) => {
     // Handle typing indicators
     if (msg.type === 'typing' && msg.user !== user.name) {
@@ -156,8 +193,8 @@ export const Chat: React.FC<ChatProps> = ({
       // Clear typing indicator for this user when they send a message
       setTypingUsers(prev => prev.filter(u => u !== msg.user))
 
-      const chatMessage: ChatMessage = {
-        id: `${msg.timestamp || Date.now()}-${Math.random()}`,
+      const chatMessage = {
+        id: uuid(),
         user: msg.user,
         message: msg.message,
         timestamp: msg.timestamp || Date.now(),
@@ -166,6 +203,7 @@ export const Chat: React.FC<ChatProps> = ({
         type: msg.messageType || 'message'
       }
 
+      // Add to local state for real-time display
       setMessages(prev => [...prev, chatMessage])
     }
 
@@ -204,7 +242,7 @@ export const Chat: React.FC<ChatProps> = ({
     }
   }, [messages, autoScroll])
 
-  const sendMessage = useCallback(() => {
+  const sendMessage = useCallback(async () => {
     if (inputMessage.trim() && send && !disabled) {
       const message = {
         type: 'chat',
@@ -215,10 +253,41 @@ export const Chat: React.FC<ChatProps> = ({
         avatarUrl: user.avatarUrl || undefined
       }
 
-      send(message)
-      setInputMessage('')
+      const chatMessage: ChatMessage = {
+        id: uuid(),
+        user: message.user,
+        message: message.message,
+        timestamp: message.timestamp,
+        userId: message.userId,
+        avatarUrl: message.avatarUrl,
+        type: 'message'
+      }
+
+      try {
+        // 1. Broadcast to live users immediately
+        send(message)
+
+        // 2. Persist the message if enabled
+        if (persistMessages && pushMessage) {
+          await pushMessage(chatMessage)
+
+          // 3. Maintain message history limit using atomic splice
+          if (messages.length >= messageHistoryLimit && spliceMessages) {
+            // Calculate how many messages to remove
+            const excessCount = (messages.length + 1) - messageHistoryLimit
+            if (excessCount > 0) {
+              await spliceMessages(0, excessCount)
+            }
+          }
+        }
+
+        setInputMessage('')
+      } catch (error) {
+        console.error('Failed to send message:', error)
+        // Could add error state/toast here
+      }
     }
-  }, [inputMessage, send, disabled, user])
+  }, [inputMessage, send, disabled, user, persistMessages, pushMessage, spliceMessages, messageHistoryLimit, messages.length])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -252,26 +321,32 @@ export const Chat: React.FC<ChatProps> = ({
         style={{ maxHeight }}
         ref={messagesContainerRef}
       >
-        {messages.length === 0
+        {isLoading
           ? (
-            <div className='vaultrice-chat-empty'>
-              <div className='vaultrice-chat-empty-text'>No messages yet</div>
-              <div className='vaultrice-chat-empty-subtext'>Start the conversation!</div>
+            <div className='vaultrice-chat-loading'>
+              <div className='vaultrice-chat-loading-text'>Loading chat history...</div>
             </div>
             )
-          : (
-              messages.map((message, index) => {
-                const isOwnMessage = message.user === user.name || message.userId === user.id
-                const previousMessage = index > 0 ? messages[index - 1] : null
-                const isGrouped = shouldGroupMessage(message, previousMessage)
+          : messages.length === 0
+            ? (
+              <div className='vaultrice-chat-empty'>
+                <div className='vaultrice-chat-empty-text'>No messages yet</div>
+                <div className='vaultrice-chat-empty-subtext'>Start the conversation!</div>
+              </div>
+              )
+            : (
+                messages.map((message, index) => {
+                  const isOwnMessage = message.user === user.name || message.userId === user.id
+                  const previousMessage = index > 0 ? messages[index - 1] : null
+                  const isGrouped = shouldGroupMessage(message, previousMessage)
 
-                return (
-                  <div key={message.id}>
-                    {messageRenderer(message, isOwnMessage, isGrouped)}
-                  </div>
-                )
-              })
-            )}
+                  return (
+                    <div key={message.id}>
+                      {messageRenderer(message, isOwnMessage, isGrouped)}
+                    </div>
+                  )
+                })
+              )}
 
         {/* Add typing indicator */}
         {typingUsers.length > 0 && <TypingIndicator users={typingUsers} />}
@@ -287,12 +362,12 @@ export const Chat: React.FC<ChatProps> = ({
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          disabled={disabled || !send}
+          disabled={disabled || !send || isLoading}
         />
         <button
           className='vaultrice-chat-send-button'
           onClick={sendMessage}
-          disabled={disabled || !inputMessage.trim() || !send}
+          disabled={disabled || !inputMessage.trim() || !send || isLoading}
         >
           Send
         </button>

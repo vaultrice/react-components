@@ -192,7 +192,8 @@ export interface ChatMessage {
   userId?: string
   avatarUrl?: string
   type?: 'message' | 'system'
-  reactions?: { [emoji: string]: string[] } // emoji -> array of user names
+  reactions?: { [emoji: string]: string[] }
+  [key: string]: any
 }
 
 /**
@@ -227,6 +228,10 @@ export interface ChatProps {
   // eslint-disable-next-line no-unused-vars
   renderAvatar?: (user: any, isOwnConnection?: boolean) => ReactNode
   disabled?: boolean
+  /** If true, messages will be persisted using Vaultrice */
+  persistMessages?: boolean
+  /** Maximum number of messages to keep in persistent history (default: 100) */
+  messageHistoryLimit?: number
 }
 
 export interface ChatRoomProps {
@@ -307,6 +312,10 @@ export interface ChatRoomProps {
   autoScroll?: ChatProps['autoScroll']
   messageFilter?: ChatProps['messageFilter']
   disabled?: ChatProps['disabled']
+  /** If true, messages will be persisted using Vaultrice */
+  persistMessages?: ChatProps['persistMessages']
+  /** Maximum number of messages to keep in persistent history (default: 100) */
+  messageHistoryLimit?: ChatProps['messageHistoryLimit']
   /**
    * Callbacks
    */

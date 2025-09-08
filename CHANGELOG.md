@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1](https://github.com/vaultrice/react-components/compare/v1.1.0...v1.1.1) - 2025-09-08
+
+- **Message Persistence**: Added `persistMessages` prop to `Chat` and `ChatRoom` components to enable persistent message history using Vaultrice storage
+- **Message History Limit**: Added `messageHistoryLimit` prop (default: 100) to control the maximum number of messages kept in persistent history
+
 ## [1.1.0](https://github.com/vaultrice/react-components/compare/v1.0.0...v1.1.0) - 2025-09-08
 
 - **New `<Presence />` component**: Real-time user presence indicators with customizable avatars

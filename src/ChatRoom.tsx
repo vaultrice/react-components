@@ -28,6 +28,8 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
   autoScroll = true,
   messageFilter,
   disabled = false,
+  persistMessages = false,
+  messageHistoryLimit = 100,
   onMessage,
   onSendReady,
   onPresenceMessage,
@@ -98,7 +100,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                 instanceOptions={instanceOptions}
                 deduplicateBy={deduplicateBy}
                 predefinedUsers={predefinedUsers}
-                showOfflineUsers={showOfflineUsers} // Pass through, Presence will handle predefined users automatically
+                showOfflineUsers={showOfflineUsers}
                 maxAvatars={maxAvatars}
                 renderAvatar={renderPresenceAvatar}
                 onMessage={handlePresenceMessage}
@@ -124,6 +126,8 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
           renderMessage={renderMessage}
           renderAvatar={renderChatAvatar}
           disabled={disabled}
+          persistMessages={persistMessages}
+          messageHistoryLimit={messageHistoryLimit}
           onMessage={onMessage}
           onSendReady={onSendReady}
         />
