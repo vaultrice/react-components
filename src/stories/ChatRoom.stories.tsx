@@ -129,7 +129,6 @@ export const PersistentWithCustomLimit: Story = {
     subtitle: 'Only keeps last 20 messages',
     persistMessages: true,
     messageHistoryLimit: 20,
-    maxHeight: '300px',
     credentials: defaultCredentials
   },
   parameters: {
@@ -150,7 +149,6 @@ export const Minimal: Story = {
     },
     showHeader: false,
     showPresence: false,
-    maxHeight: '300px',
     credentials: defaultCredentials
   }
 }
@@ -165,7 +163,6 @@ export const CompactWithPresence: Story = {
     },
     title: 'Quick Chat',
     showTimestamps: false,
-    maxHeight: '250px',
     maxAvatars: 3,
     credentials: defaultCredentials
   }
@@ -362,7 +359,6 @@ const InteractiveChatRoomDemo = () => {
         predefinedUsers={allUsers}
         showOfflineUsers={showOfflineUsers}
         deduplicateBy='id'
-        maxHeight='350px'
         persistMessages={persistMessages}
         messageHistoryLimit={messageHistoryLimit}
         credentials={defaultCredentials}
@@ -385,7 +381,6 @@ export const Interactive: Story = {
     predefinedUsers: allUsers,
     showOfflineUsers: true,
     deduplicateBy: 'id',
-    maxHeight: '350px',
     persistMessages: false,
     messageHistoryLimit: 100,
     credentials: defaultCredentials
@@ -489,7 +484,6 @@ const PersistenceDemo = () => {
                 subtitle='Shared persistent history'
                 persistMessages
                 messageHistoryLimit={30}
-                maxHeight='250px'
                 showPresence={false}
                 showHeader
                 credentials={defaultCredentials}
@@ -514,7 +508,6 @@ export const PersistenceAcrossInstances: Story = {
     subtitle: 'Shared persistent history',
     persistMessages: true,
     messageHistoryLimit: 30,
-    maxHeight: '250px',
     showPresence: false,
     showHeader: true,
     credentials: defaultCredentials

@@ -11,6 +11,8 @@
             inset -1px -1px 1px rgba(0, 0, 0, 0.2),
             0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 100%; /* Take full height of parent */
+  min-height: 400px; /* Minimum height fallback */
 }
 
 .vaultrice-chatroom-header {
@@ -21,6 +23,8 @@
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(4px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0; /* Don't shrink header */
+  min-height: 0; /* Allow flex to work properly */
 }
 
 .vaultrice-chatroom-header-text {
@@ -49,17 +53,30 @@
 }
 
 .vaultrice-chatroom-chat {
-  flex: 1;
-  min-height: 0;
+  flex: 1; /* Take all remaining space */
+  min-height: 0; /* Allow flex item to shrink below content size */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Ensure proper containment */
 }
 
-/* Override chat styles to remove duplicate glassmorphism */
+/* Override chat styles to remove duplicate glassmorphism and make it flex properly */
 .vaultrice-chatroom-chat .vaultrice-chat {
   background: transparent;
   border: none;
   box-shadow: none;
   backdrop-filter: none;
   border-radius: 0;
+  height: 100%; /* Take full height of parent */
+  min-height: 0; /* Allow shrinking */
+  flex: 1; /* Ensure it takes available space */
+}
+
+/* Ensure the messages container in ChatRoom context takes available space */
+.vaultrice-chatroom-chat .vaultrice-chat .vaultrice-chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* Enhanced Dark Mode for ChatRoom - now uses CSS variables */

@@ -49,7 +49,6 @@ export const Default: Story = {
     placeholder: 'Type a message...',
     showTimestamps: true,
     showUserAvatars: true,
-    maxHeight: '400px',
     credentials: defaultCredentials
   }
 }
@@ -76,7 +75,6 @@ export const CompactMode: Story = {
     },
     showTimestamps: false,
     showUserAvatars: false,
-    maxHeight: '250px',
     placeholder: 'Quick message...',
     credentials: defaultCredentials
   }
@@ -146,7 +144,6 @@ const ChatWithPresenceDemo = () => {
           id='chat-presence-demo-1'
           user={currentUser}
           credentials={defaultCredentials}
-          maxHeight='300px'
         />
       </div>
     </div>

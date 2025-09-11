@@ -212,7 +212,6 @@ export interface ChatProps {
   // eslint-disable-next-line no-unused-vars
   onSendReady?: (send: (msg: any) => void) => void
   placeholder?: string
-  maxHeight?: string
   showTimestamps?: boolean
   showUserAvatars?: boolean
   autoScroll?: boolean
@@ -230,7 +229,6 @@ export interface ChatProps {
   disabled?: boolean
   /** If true, messages will be persisted using Vaultrice */
   persistMessages?: boolean
-  /** Maximum number of messages to keep in persistent history (default: 100) */
   messageHistoryLimit?: number
 }
 
@@ -306,7 +304,6 @@ export interface ChatRoomProps {
    * Chat-specific props
    */
   placeholder?: ChatProps['placeholder']
-  maxHeight?: ChatProps['maxHeight']
   showTimestamps?: ChatProps['showTimestamps']
   showUserAvatars?: ChatProps['showUserAvatars']
   autoScroll?: ChatProps['autoScroll']

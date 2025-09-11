@@ -22,7 +22,6 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
   renderChatAvatar,
   renderMessage,
   placeholder,
-  maxHeight = '400px',
   showTimestamps = true,
   showUserAvatars = true,
   autoScroll = true,
@@ -81,6 +80,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
 
   return (
     <div className='vaultrice-chatroom'>
+      {/* Header stays at top */}
       {showHeader && (title || subtitle || showPresence) && (
         <div className='vaultrice-chatroom-header'>
           <div className='vaultrice-chatroom-header-text'>
@@ -111,6 +111,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
         </div>
       )}
 
+      {/* Chat takes remaining space */}
       <div className='vaultrice-chatroom-chat'>
         <Chat
           id={id}
@@ -118,7 +119,6 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
           credentials={credentials}
           instanceOptions={instanceOptions}
           placeholder={placeholder}
-          maxHeight={maxHeight}
           showTimestamps={showTimestamps}
           showUserAvatars={showUserAvatars}
           autoScroll={autoScroll}

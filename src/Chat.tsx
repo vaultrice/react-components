@@ -107,7 +107,6 @@ export const Chat: React.FC<ChatProps> = ({
   onMessage,
   onSendReady,
   placeholder = 'Type a message...',
-  maxHeight = '400px',
   showTimestamps = true,
   showUserAvatars = true,
   autoScroll = true,
@@ -318,7 +317,6 @@ export const Chat: React.FC<ChatProps> = ({
     <div className='vaultrice-chat'>
       <div
         className='vaultrice-chat-messages'
-        style={{ maxHeight }}
         ref={messagesContainerRef}
       >
         {isLoading

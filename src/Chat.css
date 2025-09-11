@@ -4,7 +4,6 @@
   font-family: -apple-system, 'system-ui', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   border-radius: 16px;
   overflow: hidden;
-  min-height: 300px;
   backdrop-filter: blur(8px);
   /* Use CSS variables for the glassmorphism background */
   background: linear-gradient(125deg, var(--vaultrice-glass-color-1) -22%, var(--vaultrice-glass-color-2) 45%, var(--vaultrice-glass-color-3) 125%);
@@ -12,10 +11,17 @@
             inset -1px -1px 1px rgba(0, 0, 0, 0.2),
             0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 100%; /* Take full height of parent */
+  min-height: 300px; /* Minimum height when standalone */
+}
+
+/* When Chat is inside ChatRoom, remove the min-height constraint */
+.vaultrice-chatroom-chat .vaultrice-chat {
+  min-height: 0;
 }
 
 .vaultrice-chat-messages {
-  flex: 1;
+  flex: 1; /* Take all available space */
   padding: 16px;
   overflow-y: auto;
   display: flex;
@@ -24,6 +30,7 @@
   scroll-behavior: smooth;
   background: var(--vaultrice-background-overlay);
   backdrop-filter: blur(4px);
+  min-height: 0; /* Allow shrinking below content size */
 }
 
 .vaultrice-chat-messages::-webkit-scrollbar {
@@ -133,6 +140,7 @@
   background: var(--vaultrice-background-input);
   backdrop-filter: blur(8px);
   border-top: 1px solid var(--vaultrice-border-light);
+  flex-shrink: 0; /* Don't shrink input area */
 }
 
 .vaultrice-chat-input {
