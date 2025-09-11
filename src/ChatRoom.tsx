@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React from 'react'
 import { Chat } from './Chat'
 import { Presence } from './Presence'
 import type { ChatRoomProps } from './types'
@@ -30,53 +30,11 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
   persistMessages = false,
   messageHistoryLimit = 100,
   onMessage,
-  onSendReady,
-  onPresenceMessage,
-  onPresenceSendReady
+  onSendReady
 }) => {
-  const [onlineCount, setOnlineCount] = useState(0)
-  // eslint-disable-next-line no-unused-vars
-  const [presenceSend, setPresenceSend] = useState<((msg: any) => void) | null>(null)
-
-  // Handle presence send function being ready
-  // eslint-disable-next-line no-unused-vars
-  const handlePresenceSendReady = useCallback((send: (msg: any) => void) => {
-    setPresenceSend(send)
-    if (onPresenceSendReady) {
-      onPresenceSendReady(send)
-    }
-  }, [onPresenceSendReady])
-
-  // Handle presence updates to track online count
-  const handlePresenceMessage = useCallback((msg: any) => {
-    // Track presence changes to update online count
-    if (msg.type === 'presence') {
-      if (msg.action === 'join' || msg.action === 'update') {
-        // Request current presence state to get accurate count
-        if (presenceSend) {
-          presenceSend({ type: 'get-presence' })
-        }
-      }
-    } else if (msg.type === 'presence-state' && Array.isArray(msg.connections)) {
-      // Update online count from presence state
-      setOnlineCount(msg.connections.length)
-    }
-
-    if (onPresenceMessage) {
-      onPresenceMessage(msg)
-    }
-  }, [onPresenceMessage, presenceSend])
-
-  // Request initial presence state when presence send becomes available
-  useEffect(() => {
-    if (presenceSend) {
-      presenceSend({ type: 'get-presence' })
-    }
-  }, [presenceSend])
-
   // Default title and subtitle
   const displayTitle = title || 'Team Chat'
-  const displaySubtitle = subtitle || (onlineCount > 0 ? `${onlineCount} online` : 'Join the conversation')
+  const displaySubtitle = subtitle || 'Join the conversation'
 
   return (
     <div className='vaultrice-chatroom'>
@@ -87,7 +45,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
             {(title || showPresence) && (
               <h3 className='vaultrice-chatroom-title'>{displayTitle}</h3>
             )}
-            {(subtitle || (!title && onlineCount >= 0)) && (
+            {(subtitle) && (
               <p className='vaultrice-chatroom-subtitle'>{displaySubtitle}</p>
             )}
           </div>
@@ -103,8 +61,6 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
                 showOfflineUsers={showOfflineUsers}
                 maxAvatars={maxAvatars}
                 renderAvatar={renderPresenceAvatar}
-                onMessage={handlePresenceMessage}
-                onSendReady={handlePresenceSendReady}
               />
             </div>
           )}

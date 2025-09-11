@@ -318,6 +318,4 @@ export interface ChatRoomProps {
    */
   onMessage?: ChatProps['onMessage']
   onSendReady?: ChatProps['onSendReady']
-  onPresenceMessage?: PresenceProps['onMessage']
-  onPresenceSendReady?: PresenceProps['onSendReady']
 }

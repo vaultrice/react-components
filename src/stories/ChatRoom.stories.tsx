@@ -13,8 +13,6 @@ const meta = {
     credentials: { control: false },
     onMessage: { control: false },
     onSendReady: { control: false },
-    onPresenceMessage: { control: false },
-    onPresenceSendReady: { control: false },
     renderMessage: { control: false },
     renderChatAvatar: { control: false },
     renderPresenceAvatar: { control: false },
