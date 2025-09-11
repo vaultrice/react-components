@@ -120,6 +120,7 @@ export const Chat: React.FC<ChatProps> = ({
   messageHistoryLimit = 100
 }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [persistedMessagesSetOnce, setPersistedMessagesSetOnce] = useState(false)
   const [inputMessage, setInputMessage] = useState('')
   const [typingUsers, setTypingUsers] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -142,7 +143,7 @@ export const Chat: React.FC<ChatProps> = ({
   // Load persisted message history only once
   useEffect(() => {
     // Only run if persistence is enabled, not loading, and haven't loaded history yet
-    if (!persistMessages || isLoading || !persistedMessages || persistedMessages.length === 0) {
+    if (persistedMessagesSetOnce || !persistMessages || isLoading || !persistedMessages || persistedMessages.length === 0) {
       return
     }
 
@@ -160,8 +161,9 @@ export const Chat: React.FC<ChatProps> = ({
         .sort((a, b) => a.timestamp - b.timestamp)
 
       setMessages(validMessages)
+      setPersistedMessagesSetOnce(true)
     }
-  }, [persistMessages, persistedMessages, isLoading])
+  }, [persistMessages, persistedMessages, isLoading, persistedMessagesSetOnce])
 
   // Handle incoming live messages
   const handleMessage = useCallback((msg: any) => {
