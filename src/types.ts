@@ -29,6 +29,11 @@ export interface User {
 export interface UserAuthSettings {
   userIdSignature?: string;
   identityToken?: string;
+  /**
+   * Optional function to dynamically retrieve identity token.
+   * When provided, this will be called to get the latest token.
+   */
+  getIdentityToken?: () => Promise<string> | string;
 }
 
 /**

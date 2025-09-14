@@ -66,10 +66,25 @@ export const Presence: React.FC<PresenceProps> = ({
 
   // Join presence on mount, leave on unmount - only when user values change
   useEffect(() => {
-    if (memoizedUser && !hasJoinedRef.current) {
-      join(memoizedUser, auth)
-      hasJoinedRef.current = true
+    const joinWithAuth = async () => {
+      if (memoizedUser && !hasJoinedRef.current) {
+        let authToUse = auth
+
+        // If getIdentityToken is provided, call it to get the latest token
+        if (auth?.getIdentityToken) {
+          const token = await auth.getIdentityToken()
+          authToUse = {
+            ...auth,
+            identityToken: token
+          }
+        }
+
+        join(memoizedUser, authToUse)
+        hasJoinedRef.current = true
+      }
     }
+
+    joinWithAuth()
 
     return () => {
       if (hasJoinedRef.current) {
@@ -78,7 +93,7 @@ export const Presence: React.FC<PresenceProps> = ({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [memoizedUser]) // Use memoized user instead of user
+  }, [memoizedUser]) // Add auth to dependencies
 
   // Enhanced logic to merge connected users with predefined and recent users
   const enhancedUsers = useMemo(() => {

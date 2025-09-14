@@ -279,14 +279,24 @@ export const Chat: React.FC<ChatProps> = ({
       }
 
       try {
-        // 1. Broadcast to live users immediately
-        send(message, auth)
+        // 1. Prepare auth with dynamic token if needed
+        let authToUse = auth
+        if (auth?.getIdentityToken) {
+          const token = await auth.getIdentityToken()
+          authToUse = {
+            ...auth,
+            identityToken: token
+          }
+        }
 
-        // 2. Persist the message if enabled
+        // 2. Broadcast to live users immediately
+        send(message, authToUse)
+
+        // 3. Persist the message if enabled
         if (persistMessages && pushMessage) {
           await pushMessage(chatMessage)
 
-          // 3. Maintain message history limit using atomic splice
+          // 4. Maintain message history limit using atomic splice
           if (messages.length >= messageHistoryLimit && spliceMessages) {
             // Calculate how many messages to remove
             const excessCount = (messages.length + 1) - messageHistoryLimit

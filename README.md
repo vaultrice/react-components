@@ -299,7 +299,54 @@ const teamMembers = [
 />
 ```
 
-## Dark Mode Support
+### Authentication Support
+
+Components support optional user authentication for enhanced security:
+
+```tsx
+const authSettings = {
+  userIdSignature: "signed-user-id",
+  // or
+  identityToken: "jwt-token",
+  // or: Dynamic token retrieval
+  getIdentityToken: async () => {
+    // Fetch fresh token from your auth system
+    const response = await fetch('/api/auth/token')
+    const { token } = await response.json()
+    return token
+  }
+}
+
+<ChatRoom
+  id="secure-chat"
+  user={currentUser}
+  auth={authSettings}
+  credentials={credentials}
+/>
+```
+
+The `getIdentityToken` function is particularly useful for:
+- **JWT token refresh**: Automatically get fresh tokens when they expire
+- **Dynamic authentication**: Retrieve tokens based on current user state
+- **Secure token storage**: Avoid storing sensitive tokens in component state
+
+**Usage patterns:**
+
+```tsx
+// Static token
+const auth = {
+  identityToken: "static-token"
+}
+
+// Dynamic token retrieval
+const auth = {
+  getIdentityToken: async () => {
+    return await refreshAuthToken() // Your token refresh logic
+  }
+}
+```
+
+### Dark Mode Support
 
 All components support dark mode through CSS custom properties:
 
@@ -315,7 +362,7 @@ Or programmatically:
 document.documentElement.setAttribute('data-theme', 'dark')
 ```
 
-## Styling & Customization
+### Styling & Customization
 
 Components use CSS custom properties for easy theming:
 
