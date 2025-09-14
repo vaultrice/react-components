@@ -8,7 +8,7 @@ import './Presence.css'
 
 // Helper function to get match value based on deduplicateBy
 const getMatchValue = (userData: any, deduplicateBy?: string | string[]): any => {
-  if (!deduplicateBy) return userData?.name // Default to name if no deduplicateBy
+  if (!deduplicateBy) return userData?.id // Default to id instead of name
 
   if (Array.isArray(deduplicateBy)) {
     // For array, create a composite key
@@ -21,11 +21,12 @@ const getMatchValue = (userData: any, deduplicateBy?: string | string[]): any =>
 export const Presence: React.FC<PresenceProps> = ({
   id,
   user,
+  auth,
   onMessage,
   onSendReady,
   maxAvatars = 5,
   renderAvatar = defaultRenderPresenceAvatar,
-  deduplicateBy,
+  deduplicateBy = 'id', // Default to 'id' instead of undefined
   credentials,
   instanceOptions,
   predefinedUsers = [],
@@ -66,7 +67,7 @@ export const Presence: React.FC<PresenceProps> = ({
   // Join presence on mount, leave on unmount - only when user values change
   useEffect(() => {
     if (memoizedUser && !hasJoinedRef.current) {
-      join(memoizedUser)
+      join(memoizedUser, auth)
       hasJoinedRef.current = true
     }
 

@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0](https://github.com/vaultrice/react-components/compare/v1.1.5...v1.2.0) - 2025-09-14
+
+### Changed
+- Streamlined user prop API for ChatRoom, Chat and Presence:
+  - `Presence`, `Chat`, and `ChatRoom` components: Updated user prop to use standardized `User` type with `id`
+  - `deduplicateBy` prop now defaults to `'id'` instead of `'name'` for better reliability
+
+### Added
+- **User Authentication support**: Introduced `auth` prop to components for user verification:
+  - Optional `auth` object with `userIdSignature` and `identityToken` properties
+  - Enhanced security for user identity validation in real-time features
+
+### Updated
+- Update dependencies to latest versions
+
 ## [1.1.5](https://github.com/vaultrice/react-components/compare/v1.1.4...v1.1.5) - 2025-09-12
 
 - update dependencies

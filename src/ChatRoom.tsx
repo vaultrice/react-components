@@ -8,13 +8,14 @@ import './ChatRoom.css'
 export const ChatRoom: React.FC<ChatRoomProps> = ({
   id,
   user,
+  auth,
   title,
   subtitle,
   showPresence = true,
   showHeader = true,
   credentials,
   instanceOptions,
-  deduplicateBy,
+  deduplicateBy = 'id', // Default to 'id'
   predefinedUsers,
   showOfflineUsers,
   maxAvatars,
@@ -54,6 +55,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
               <Presence
                 id={id}
                 user={user}
+                auth={auth}
                 credentials={credentials}
                 instanceOptions={instanceOptions}
                 deduplicateBy={deduplicateBy}
@@ -72,6 +74,7 @@ export const ChatRoom: React.FC<ChatRoomProps> = ({
         <Chat
           id={id}
           user={user}
+          auth={auth}
           credentials={credentials}
           instanceOptions={instanceOptions}
           placeholder={placeholder}

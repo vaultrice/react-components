@@ -2,6 +2,36 @@ import type { Credentials, InstanceOptions, JSONObj, JoinedConnection } from '@v
 import type { ReactNode } from 'react'
 
 /**
+ * Standardized user type used across all components.
+ */
+export interface User {
+  /**
+   * Unique identifier for the user (required for consistency).
+   */
+  id?: string
+  /**
+   * Display name for the user.
+   */
+  name?: string
+  /**
+   * Optional avatar URL for the user.
+   */
+  avatarUrl?: string
+  /**
+   * Allow additional user metadata.
+   */
+  [key: string]: any
+}
+
+/**
+ * Object containing authentication credentials for user verification.
+ */
+export interface UserAuthSettings {
+  userIdSignature?: string;
+  identityToken?: string;
+}
+
+/**
  * Represents a selectable option in a voting component.
  */
 export type ChoiceOption = {
@@ -105,8 +135,8 @@ export interface VotingProps {
   bind?: boolean,
   /**
    * Optional user identifier for localStorage.
-   * If not provided it wull use the passed userId or undefined.
-   * @default 'undefined'
+   * If not provided it will use the user.id.
+   * @default user.id
    */
   userIdForLocalStorage?: string
   /**
@@ -125,7 +155,7 @@ export interface PredefinedUser {
 }
 
 /**
- * Props for the Chat component.
+ * Props for the Presence component.
  */
 export interface PresenceProps {
   /**
@@ -135,11 +165,7 @@ export interface PresenceProps {
   /**
    * Current user information.
    */
-  user: {
-    name?: string
-    avatarUrl?: string
-    [key: string]: any
-  }
+  user: User
   /**
    * Callback function called when a message is received.
    */
@@ -161,6 +187,7 @@ export interface PresenceProps {
   renderAvatar?: (connection: JoinedConnection, isOwnConnection?: boolean, predefinedUser?: boolean) => ReactNode
   /**
    * Property name(s) to use for deduplicating users.
+   * @default 'id'
    */
   deduplicateBy?: string | string[]
   /**
@@ -179,6 +206,10 @@ export interface PresenceProps {
    * Whether to show offline predefined users.
    */
   showOfflineUsers?: boolean
+  /**
+   * Optional object containing authentication credentials for user verification.
+   */
+  auth?: UserAuthSettings
 }
 
 /**
@@ -186,7 +217,7 @@ export interface PresenceProps {
  */
 export interface ChatMessage {
   id: string
-  user: string
+  user?: string
   message: string
   timestamp: number
   userId?: string
@@ -201,12 +232,7 @@ export interface ChatMessage {
  */
 export interface ChatProps {
   id: string
-  user: {
-    name: string
-    avatarUrl?: string
-    id?: string
-    [key: string]: any
-  }
+  user: User
   // eslint-disable-next-line no-unused-vars
   onMessage?: (msg: JSONObj) => void
   // eslint-disable-next-line no-unused-vars
@@ -230,6 +256,10 @@ export interface ChatProps {
   /** If true, messages will be persisted using Vaultrice */
   persistMessages?: boolean
   messageHistoryLimit?: number
+  /**
+   * Optional object containing authentication credentials for user verification.
+   */
+  auth?: UserAuthSettings
 }
 
 export interface ChatRoomProps {
@@ -240,12 +270,7 @@ export interface ChatRoomProps {
   /**
    * Current user information.
    */
-  user: {
-    name: string
-    avatarUrl?: string
-    id?: string
-    [key: string]: any
-  }
+  user: User
   /**
    * Optional room title.
    */
@@ -274,6 +299,7 @@ export interface ChatRoomProps {
   instanceOptions?: ChatProps['instanceOptions']
   /**
    * Property name(s) to use for deduplicating users.
+   * @default 'id'
    */
   deduplicateBy?: PresenceProps['deduplicateBy']
   /**
@@ -318,4 +344,8 @@ export interface ChatRoomProps {
    */
   onMessage?: ChatProps['onMessage']
   onSendReady?: ChatProps['onSendReady']
+  /**
+   * Optional object containing authentication credentials for user verification.
+   */
+  auth?: ChatProps['auth']
 }

@@ -104,6 +104,7 @@ const TypingIndicator: React.FC<{ users: string[] }> = ({ users }) => {
 export const Chat: React.FC<ChatProps> = ({
   id,
   user,
+  auth,
   onMessage,
   onSendReady,
   placeholder = 'Type a message...',
@@ -167,20 +168,23 @@ export const Chat: React.FC<ChatProps> = ({
 
   // Handle incoming live messages
   const handleMessage = useCallback((msg: any) => {
-    // Handle typing indicators
-    if (msg.type === 'typing' && msg.user !== user.name) {
-      setTypingUsers(prev => {
-        const filtered = prev.filter(u => u !== msg.user)
-        return [...filtered, msg.user]
-      })
+    // Handle typing indicators - use userId if available, fallback to name
+    if (msg.type === 'typing') {
+      const isOwnTyping = msg.userId ? msg.userId === user.id : msg.user === user.name
+      if (!isOwnTyping) {
+        setTypingUsers(prev => {
+          const filtered = prev.filter(u => u !== msg.user)
+          return [...filtered, msg.user]
+        })
 
-      // Clear typing indicator after 3 seconds
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current)
+        // Clear typing indicator after 3 seconds
+        if (typingTimeoutRef.current) {
+          clearTimeout(typingTimeoutRef.current)
+        }
+        typingTimeoutRef.current = setTimeout(() => {
+          setTypingUsers(prev => prev.filter(u => u !== msg.user))
+        }, 3000)
       }
-      typingTimeoutRef.current = setTimeout(() => {
-        setTypingUsers(prev => prev.filter(u => u !== msg.user))
-      }, 3000)
 
       return
     }
@@ -192,7 +196,17 @@ export const Chat: React.FC<ChatProps> = ({
 
     if (msg.type === 'chat' && msg.user && msg.message) {
       // Clear typing indicator for this user when they send a message
-      setTypingUsers(prev => prev.filter(u => u !== msg.user))
+      // Use the same logic as ownership detection
+      setTypingUsers(prev => {
+        const userIdentifier = msg.userId ? msg.userId === user.id : msg.user === user.name
+        if (userIdentifier) {
+          // If it's our own message, clear our typing indicator
+          return prev.filter(u => u !== user.name)
+        } else {
+          // If it's someone else's message, clear their typing indicator
+          return prev.filter(u => u !== msg.user)
+        }
+      })
 
       const chatMessage = {
         id: uuid(),
@@ -212,7 +226,7 @@ export const Chat: React.FC<ChatProps> = ({
     if (onMessage) {
       onMessage(msg)
     }
-  }, [messageFilter, onMessage, user.name])
+  }, [messageFilter, onMessage, user.name, user.id])
 
   const [, send] = useMessaging(id, handleMessage, {
     credentials,
@@ -266,7 +280,7 @@ export const Chat: React.FC<ChatProps> = ({
 
       try {
         // 1. Broadcast to live users immediately
-        send(message)
+        send(message, auth)
 
         // 2. Persist the message if enabled
         if (persistMessages && pushMessage) {
@@ -288,7 +302,7 @@ export const Chat: React.FC<ChatProps> = ({
         // Could add error state/toast here
       }
     }
-  }, [inputMessage, send, disabled, user, persistMessages, pushMessage, spliceMessages, messageHistoryLimit, messages.length])
+  }, [inputMessage, send, disabled, user, auth, persistMessages, pushMessage, spliceMessages, messageHistoryLimit, messages.length])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -336,7 +350,10 @@ export const Chat: React.FC<ChatProps> = ({
               )
             : (
                 messages.map((message, index) => {
-                  const isOwnMessage = message.user === user.name || message.userId === user.id
+                  // Use consistent logic: prioritize userId, fallback to name
+                  const isOwnMessage = message.userId
+                    ? message.userId === user.id
+                    : message.user === user.name
                   const previousMessage = index > 0 ? messages[index - 1] : null
                   const isGrouped = shouldGroupMessage(message, previousMessage)
 
